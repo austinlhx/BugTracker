@@ -14,8 +14,10 @@ import {
     Radio,
     RadioGroup
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router'
 
 export default function Login() {
+    const router = useRouter()
     return (
         <Flex
             minH={'100vh'}
@@ -48,7 +50,8 @@ export default function Login() {
                         color={'white'}
                         _hover={{
                             bg: 'blue.500',
-                        }}>
+                        }}
+                        onClick={() => router.push('/login')}>
                         Login using Discord
                     </Button>
                 </Stack>
