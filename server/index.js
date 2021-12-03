@@ -6,6 +6,10 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const bodyParser = require('body-parser');
+
+
+
 const oauth = new DiscordOauth2({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
@@ -15,6 +19,9 @@ const oauth = new DiscordOauth2({
 
 const app = express()
 const port = 4000
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.send('Bug Tracker!')
@@ -35,10 +42,12 @@ app.use(function(req, res, next) {
   });
 
 app.get('/login', (req, res) => {
+    console.log('Hit Login')
     const url = oauth.generateAuthUrl({
         scope: ["identify", "email"],
         state: crypto.randomBytes(16).toString("hex"),
     })
+    console.log(url)
     res.redirect(url);
   });
 
