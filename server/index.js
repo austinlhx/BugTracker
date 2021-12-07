@@ -31,7 +31,7 @@ app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
 })
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept");
@@ -39,7 +39,7 @@ app.use(function(req, res, next) {
         "GET, POST, PUT, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
     next();
-  });
+});
 
 app.get('/login', (req, res) => {
     console.log('Hit Login')
@@ -49,29 +49,29 @@ app.get('/login', (req, res) => {
     })
     console.log(url)
     res.redirect(url);
-  });
+});
 
-  app.get('/callback', (req, res) => {
-      //res.send('Logged In!')
-      oauth.tokenRequest({
-          code: req.query.code,
-          scope: 'identify email',
-          grantType: 'authorization_code'
-      }).then(token => {
-          oauth.getUser(token.access_token).then(user => {
-              console.log(user)
-              res.send(user)
-          })
-      }).catch((e) => {
-          console.log(e.message);
-          console.log(e.response)
-      })
-      
+app.get('/callback', (req, res) => {
+    //res.send('Logged In!')
+    oauth.tokenRequest({
+        code: req.query.code,
+        scope: 'identify email',
+        grantType: 'authorization_code'
+    }).then(token => {
+        oauth.getUser(token.access_token).then(user => {
+            console.log(user)
+            res.send(user)
+        })
+    }).catch((e) => {
+        console.log(e.message);
+        console.log(e.response)
+    })
 
-      
-      
-      //res.send(token)
 
-      //oauth.getUser(access_token).then(res.send)
 
-  })
+
+    //res.send(token)
+
+    //oauth.getUser(access_token).then(res.send)
+
+})

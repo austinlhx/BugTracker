@@ -1,28 +1,13 @@
+import React from 'react'
 import {
     Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    Checkbox,
     Stack,
-    Link,
     Button,
     Heading,
-    Text,
-    useColorModeValue,
-    Radio,
-    RadioGroup
+    useColorModeValue
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router'
-import { login } from '../../../server/services/bug-service';
 
-export default function Login() {
-    const router = useRouter()
-    const clickHandler = () => {
-        router.push('/login');
-        login();
-    };
+const LoginPage = () => {
     return (
         <Flex
             minH={'100vh'}
@@ -42,12 +27,6 @@ export default function Login() {
                 <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
                     Login
                 </Heading>
-                {/* <RadioGroup>
-                    <Stack direction="row">
-                        <Radio value="dev">Developer</Radio>
-                        <Radio value="admin">Admin</Radio>
-                    </Stack>
-                </RadioGroup> */}
                 <Stack spacing={6}>
                     <Button
                         size={'lg'}
@@ -55,8 +34,7 @@ export default function Login() {
                         color={'white'}
                         _hover={{
                             bg: 'blue.500',
-                        }}
-                        onClick={clickHandler}>
+                        }}>
                         Login using Discord
                     </Button>
                 </Stack>
@@ -64,3 +42,5 @@ export default function Login() {
         </Flex>
     )
 }
+
+export default LoginPage
