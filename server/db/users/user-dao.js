@@ -1,5 +1,7 @@
 const model = require('./user-model')
 
+const createUser = (user) => model.create(user);
+
 const findAllUsers = () => model.find();
 
 const findUser = (id) => model.find({_id: id})
@@ -13,9 +15,7 @@ const updateUser = (id, information) =>
         }) //TODO: implement so that anything could be updated.
 
 const assignTicketToUser = (ticket_id, id) => {
-    const ticket = ticket_id
-
-    model.updateOne({_id: id},
+    return model.updateOne({_id: id},
         {
             $push: {
                 assignedTickets: ticket_id
@@ -25,6 +25,6 @@ const assignTicketToUser = (ticket_id, id) => {
 } //Should it be ticket or ticket_id?
 
 module.exports = {
-    findAllUsers, findUser, 
+    createUser, findAllUsers, findUser, 
     updateUser, assignTicketToUser
 }
