@@ -1,0 +1,196 @@
+[
+    {
+        "id": "1234",
+        "name": {
+            "first": "Dev",
+            "last": "1"
+        },
+        "email": "exampledev1@gmail.com",
+        "role": "Developer",
+        "joined_date": "12/7/2021",
+        "project": "Project 1",
+        "tickets": {
+            "priority": {
+                "low": 4,
+                "medium": 13,
+                "high": 9
+            },
+            "status": {
+                "new": 12,
+                "in_progress": 19,
+                "resolved": 3
+            },
+            "type": {
+                "bug": 12,
+                "feature_request": 9,
+                "customer_issue": 3
+            },
+            "id_list": [
+                "123",
+                "234",
+                "345"
+            ]
+        }
+    },
+    {
+        "id": "2345",
+        "name": {
+            "first": "Duy",
+            "last": "Tran"
+        },
+        "email": "exampleadmin1@gmail.com",
+        "role": "Admin",
+        "joined_date": "12/1/2021",
+        "project": "",
+        "tickets": {
+            "priority": {
+                "low": 0,
+                "medium": 0,
+                "high": 0
+            },
+            "status": {
+                "new": 0,
+                "in_progress": 0,
+                "resolved": 0
+            },
+            "type": {
+                "bug": 0,
+                "feature_request": 0,
+                "customer_issue": 0
+            },
+            "id_list": []
+        }
+    },
+    {
+        "id": "3456",
+        "name": {
+            "first": "Dev",
+            "last": "2"
+        },
+        "email": "exampledev2@gmail.com",
+        "role": "Developer",
+        "joined_date": "11/1/2021",
+        "project": "Project 1",
+        "tickets": {
+            "priority": {
+                "low": 4,
+                "medium": 13,
+                "high": 9
+            },
+            "status": {
+                "new": 12,
+                "in_progress": 19,
+                "resolved": 3
+            },
+            "type": {
+                "bug": 12,
+                "feature_request": 9,
+                "customer_issue": 3
+            },
+            "id_list": [
+                "123",
+                "234",
+                "345"
+            ]
+        }
+    },
+    {
+        "id": "4567",
+        "name": {
+            "first": "Dev",
+            "last": "3"
+        },
+        "email": "exampledev3@gmail.com",
+        "role": "Developer",
+        "joined_date": "10/1/2021",
+        "project": "Project 1",
+        "tickets": {
+            "priority": {
+                "low": 4,
+                "medium": 13,
+                "high": 9
+            },
+            "status": {
+                "new": 12,
+                "in_progress": 19,
+                "resolved": 3
+            },
+            "type": {
+                "bug": 12,
+                "feature_request": 9,
+                "customer_issue": 3
+            },
+            "id_list": [
+                "123",
+                "234",
+                "345"
+            ]
+        }
+    },
+    {
+        "id": "5678",
+        "name": {
+            "first": "Dev",
+            "last": "4"
+        },
+        "email": "exampledev4@gmail.com",
+        "role": "Developer",
+        "joined_date": "10/1/2021",
+        "project": "Project 2",
+        "tickets": {
+            "priority": {
+                "low": 4,
+                "medium": 13,
+                "high": 9
+            },
+            "status": {
+                "new": 12,
+                "in_progress": 19,
+                "resolved": 3
+            },
+            "type": {
+                "bug": 12,
+                "feature_request": 9,
+                "customer_issue": 3
+            },
+            "id_list": [
+                "123",
+                "234",
+                "345"
+            ]
+        }
+    },
+    {
+        "id": "6789",
+        "name": {
+            "first": "Dev",
+            "last": "5"
+        },
+        "email": "exampledev5@gmail.com",
+        "role": "Developer",
+        "joined_date": "9/1/2021",
+        "project": "Project 2",
+        "tickets": {
+            "priority": {
+                "low": 4,
+                "medium": 13,
+                "high": 9
+            },
+            "status": {
+                "new": 12,
+                "in_progress": 19,
+                "resolved": 3
+            },
+            "type": {
+                "bug": 12,
+                "feature_request": 9,
+                "customer_issue": 3
+            },
+            "id_list": [
+                "123",
+                "234",
+                "345"
+            ]
+        }
+    }
+]

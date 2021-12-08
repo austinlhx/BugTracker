@@ -1,0 +1,33 @@
+[
+    {
+        "id": "1235",
+        "name": "Project 1",
+        "description": "First Project",
+        "created_date": "7/1/2021",
+        "developers": [
+            "1234",
+            "3456",
+            "4567"
+        ],
+        "tickets": [
+            "123",
+            "234",
+            "345"
+        ]
+    },
+    {
+        "id": "23664",
+        "name": "Project 2",
+        "description": "Second Project",
+        "created_date": "7/2/2021",
+        "developers": [
+            "5678",
+            "6789"
+        ],
+        "tickets": [
+            "456",
+            "567",
+            "678"
+        ]
+    }
+]

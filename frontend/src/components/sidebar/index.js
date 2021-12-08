@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import {
     IconButton,
     Avatar,
@@ -14,8 +14,6 @@ import {
     DrawerContent,
     Text,
     useDisclosure,
-    BoxProps,
-    FlexProps,
     Menu,
     MenuButton,
     MenuDivider,
@@ -23,13 +21,7 @@ import {
     MenuList,
 } from '@chakra-ui/react';
 import {
-    FiHome,
-    FiTrendingUp,
-    FiCompass,
-    FiStar,
-    FiSettings,
     FiMenu,
-    FiBell,
     FiChevronDown,
     FiUsers
 } from 'react-icons/fi';
@@ -38,9 +30,6 @@ import {
 } from 'react-icons/md';
 import { GrProjects } from "react-icons/gr";
 import { HiOutlineTicket } from "react-icons/hi";
-import { IconType } from 'react-icons';
-import { ReactText } from 'react';
-
 
 const LinkItems = [
     { name: 'DashBoard', icon: MdDashboard },
