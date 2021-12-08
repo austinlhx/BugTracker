@@ -1,5 +1,9 @@
 const model = require('./ticket-model')
 
+const createTicket = (ticket) => {
+    model.create(ticket)
+}
+
 const findAllTickets = () => model.find({}, {});
 
 const findTicket = (id) => model.find({_id: id});
@@ -17,7 +21,7 @@ const assignTicket = (user_id, id) => {
     const user = "retrieveUser";
     model.updateOne({_id: id},
         {
-            $set: {
+            $push: {
                 assignedTo: user
             }
         });
@@ -25,7 +29,7 @@ const assignTicket = (user_id, id) => {
 
 const deleteTicket = (id) => model.deleteOne({_id: id});
 
-module.exports = {
-    findAllTickets, findTicket, 
+module.exports = {  
+    createTicket, findAllTickets, findTicket, 
     editTicket, assignTicket, deleteTicket
 }
