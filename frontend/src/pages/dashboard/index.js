@@ -10,9 +10,13 @@ import {
     Td,
     Box,
     useColorModeValue,
-    Text
+    Text,
+    VStack,
+    HStack
 } from '@chakra-ui/react'
 import DoughnutChart from '../../components/charts/doughnut';
+import { useSelector } from "react-redux";
+import PieChart from '../../components/charts/pie';
 
 const DashboardPage = () => {
     const ticket_type_data = {
@@ -97,64 +101,89 @@ const DashboardPage = () => {
     };
 
     return (
-        <SidebarWithHeader>
-            <Flex
-                justifyContent={'space-evenly'}>
-                <Stack spacing='6'>
-                    <DoughnutChart name="Tickets by Type" data={ticket_type_data} />
-                    <DoughnutChart name="Tickets by Priority" data={ticket_status_data} />
-                    <DoughnutChart name="Tickets by Status" data={ticket_priority_data} />
-                </Stack>
-                <TestingTable />
-            </Flex>
-
-        </SidebarWithHeader>
+        <VStack spacing='6'>
+            <HStack spacing='6' justify={'space-evenly'} w={'full'}>
+                <DoughnutChart name="Tickets by Type" data={ticket_type_data} />
+                <DoughnutChart name="Tickets by Priority" data={ticket_status_data} />
+                <DoughnutChart name="Tickets by Status" data={ticket_priority_data} />
+            </HStack>
+            <HStack justify={'space-evenly'} w={'full'}>
+                <TicketsTable />
+                <ProjectsTable />
+            </HStack>
+        </VStack>
     )
 }
 
-const TestingTable = () => {
+const TicketsTable = () => {
+    const tickets = useSelector((state) => state.tickets);
+    const display_tickets = tickets.slice(0, 3);
     return (
-        <Flex w={'full'}
+        <VStack
             bg={useColorModeValue('white', 'gray.800')}
-            maxWidth={'50%'}
-            maxHeight={'25%'}
             boxShadow={'2xl'}
-            rounded={'20px'}
-            padding={'40px'}
-            direction={'column'}
-            justifyContent={'center'}>
+            rounded={'20px'}>
             <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
                 Tickets
             </Text>
             <Table variant='simple'>
                 <Thead>
                     <Tr>
-                        <Th>To convert</Th>
-                        <Th>into</Th>
-                        <Th isNumeric>multiply by</Th>
+                        <Th>Name </Th>
+                        <Th>Project</Th>
+                        <Th>Description</Th>
+                        <Th>Created Date</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
-                    <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                    </Tr>
-                    <Tr>
-                        <Td>feet</Td>
-                        <Td>centimetres (cm)</Td>
-                        <Td isNumeric>30.48</Td>
-                    </Tr>
-                    <Tr>
-                        <Td>yards</Td>
-                        <Td>metres (m)</Td>
-                        <Td isNumeric>0.91444</Td>
-                    </Tr>
+                    {display_tickets.map((ticket) => (
+                        <Tr key={ticket.id}>
+                            <Td>{ticket.name}</Td>
+                            <Td>{ticket.project}</Td>
+                            <Td>{ticket.description}</Td>
+                            <Td>{ticket.created_date}</Td>
+                        </Tr>
+                    ))}
                 </Tbody>
             </Table>
-        </Flex>
+        </VStack>
 
     )
 }
+
+const ProjectsTable = () => {
+    const projects = useSelector((state) => state.projects);
+    const display_projects = projects.slice(0, 3);
+    return (
+        <VStack
+            bg={useColorModeValue('white', 'gray.800')}
+            boxShadow={'2xl'}
+            rounded={'20px'}>
+            <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+                Projects
+            </Text>
+            <Table variant='simple'>
+                <Thead>
+                    <Tr>
+                        <Th>Name </Th>
+                        <Th>Description</Th>
+                        <Th>Create Date</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {display_projects.map((project) => (
+                        <Tr key={project.id}>
+                            <Td>{project.name}</Td>
+                            <Td>{project.description}</Td>
+                            <Td>{project.created_date}</Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
+        </VStack>
+
+    )
+}
+
 
 export default DashboardPage
