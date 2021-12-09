@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Ticket 1",
+        "id": "123",
+        "description": "first ticket",
+        "project": "Project 1",
+        "submitter": "Duy Tran",
+        "assigned_developer": "Dev 1",
+        "priority": "Low",
+        "status": "In Progress",
+        "type": "Bug",
+        "created_date": "12/8/2021"
+    },
+    {
+        "name": "Ticket 2",
+        "id": "234",
+        "description": "second ticket",
+        "project": "Project 1",
+        "submitter": "Duy Tran",
+        "assigned_developer": "Dev 1",
+        "priority": "High",
+        "status": "Resolved",
+        "type": "Feature Request",
+        "created_date": "12/8/2021"
+    },
+    {
+        "name": "Ticket 3",
+        "id": "345",
+        "description": "third ticket",
+        "project": "Project 1",
+        "submitter": "Duy Tran",
+        "assigned_developer": "Dev 1",
+        "priority": "Low",
+        "status": "Duplicate",
+        "type": "Bug",
+        "created_date": "12/8/2021"
+    },
+    {
+        "name": "Ticket 4",
+        "id": "456",
+        "description": "fourth ticket",
+        "project": "Project 2",
+        "submitter": "Dev 4",
+        "assigned_developer": "Dev 4",
+        "priority": "Low",
+        "status": "In Progress",
+        "type": "Bug",
+        "created_date": "12/8/2021"
+    },
+    {
+        "name": "Ticket 5",
+        "id": "567",
+        "description": "fifth ticket",
+        "project": "Project 2",
+        "submitter": "Dev 5",
+        "assigned_developer": "Dev 4",
+        "priority": "Low",
+        "status": "In Progress",
+        "type": "Bug",
+        "created_date": "12/8/2021"
+    },
+    {
+        "name": "Ticket 6",
+        "id": "678",
+        "description": "sixth ticket",
+        "project": "Project 2",
+        "submitter": "Dev 5",
+        "assigned_developer": "Dev 5",
+        "priority": "Low",
+        "status": "In Progress",
+        "type": "Bug",
+        "created_date": "12/8/2021"
+    }
+]
