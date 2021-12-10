@@ -6,8 +6,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const oauth = new DiscordOauth2({
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
+    clientId: process.env.CLIENTID,
+    clientSecret: proccess.env.CLIENT_SECRET,
     redirectUri: 'http://localhost:4000/callback'
 });
 
@@ -43,7 +43,7 @@ app.get('/login', (req, res) => {
     console.log('Hit Login')
     const url = oauth.generateAuthUrl({
         scope: ["identify", "email"],
-        state: crypto.randomBytes(16).toString("hex"),
+        state: crypto.randomBytes(16).toString("hex")
     })
     console.log(url)
     res.redirect(url);
@@ -60,7 +60,9 @@ app.get('/callback', (req, res) => {
         oauth.getUser(token.access_token).then(user => {
             //req.session.user = user
             console.log(user)
+            
             res.redirect('http://localhost:3000/dashboard')
+            res.json(user)
         })
     }).catch((e) => {
         console.log(e.message);
