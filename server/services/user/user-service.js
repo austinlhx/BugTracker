@@ -16,7 +16,6 @@ module.exports = (app) => {
     }
 
     const findAllUsers = (req, res) => {
-        console.log('find all user')
         dao.findAllUsers()
             .then(users => {
                 res.json(users);
@@ -31,7 +30,7 @@ module.exports = (app) => {
     }
 
     const updateUser = (req, res) => {
-        dao.updateUser(req.body)
+        dao.updateUser(req.params.id, req.body)
     }
 
     const assignTicketToUser = (req, res) => {
