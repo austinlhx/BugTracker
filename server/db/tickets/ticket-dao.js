@@ -19,7 +19,7 @@ const editTicket = (id) =>
 const assignTicket = (user_id, id) => {
     //TODO: Retrieve User from ID
     const user = "retrieveUser";
-    model.updateOne({_id: id},
+    return model.updateOne({_id: id},
         {
             $push: {
                 assignedTo: user

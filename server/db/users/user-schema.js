@@ -6,8 +6,7 @@ const schema = mongoose.Schema({
     email: String,
     role: {
         type: String,
-        enum: ['Admin', 'Developer'],
-        default: 'Developer'
+        enum: ['Admin', 'Developer']
     },
     date: { type: Date, default: Date.now},
     assignedTickets: [String]
