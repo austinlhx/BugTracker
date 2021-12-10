@@ -1,17 +1,18 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import {
     Box,
+    VStack,
     Flex,
     Text,
     useColorModeValue,
-    VStack
+    Center,
 } from '@chakra-ui/react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DoughnutChart = ({ name, data }) => {
+const PieChart = ({ name, data }) => {
     const options = {
         plugins: {
             legend: {
@@ -34,10 +35,10 @@ const DoughnutChart = ({ name, data }) => {
             <Box
                 pos={'relative'}
                 width={'90%'}>
-                <Doughnut data={data} options={options} />
+                <Pie data={data} options={options} />
             </Box>
         </VStack>
     )
 }
 
-export default DoughnutChart
+export default PieChart;

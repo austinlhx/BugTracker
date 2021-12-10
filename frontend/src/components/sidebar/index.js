@@ -32,10 +32,10 @@ import { GrProjects } from "react-icons/gr";
 import { HiOutlineTicket } from "react-icons/hi";
 
 const LinkItems = [
-    { name: 'DashBoard', icon: MdDashboard },
-    { name: 'Tickets', icon: HiOutlineTicket },
-    { name: 'Projects', icon: GrProjects },
-    { name: 'Manage Users', icon: FiUsers }
+    { name: 'DashBoard', icon: MdDashboard, route: '\\dashboard' },
+    { name: 'Tickets', icon: HiOutlineTicket, route: "\\tickets" },
+    { name: 'Projects', icon: GrProjects, route: '\\projects' },
+    { name: 'Manage Users', icon: FiUsers, route: '\\manage' }
 ];
 
 export default function SidebarWithHeader({ children }) {
@@ -87,7 +87,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon}>
+                <NavItem route={link.route} key={link.name} icon={link.icon}>
                     {link.name}
                 </NavItem>
             ))}
@@ -96,9 +96,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
 };
 
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ route, icon, children, ...rest }) => {
     return (
-        <Link href="#" style={{ textDecoration: 'none' }}>
+        <Link href={route} style={{ textDecoration: 'none' }}>
             <Flex
                 align="center"
                 p="4"
