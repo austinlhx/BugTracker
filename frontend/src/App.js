@@ -9,6 +9,8 @@ import users from "./reducer/users";
 import projects from "./reducer/projects";
 import tickets from "./reducer/tickets";
 import SidebarWithHeader from './components/sidebar';
+import TicketsPage from './pages/tickets';
+import ProjectsPage from './pages/projects';
 
 const reducer = combineReducers({ users, projects, tickets });
 const store = createStore(reducer)
@@ -25,6 +27,16 @@ function App() {
           <Route path="/dashboard" element={
             <SidebarWithHeader>
               <DashboardPage />
+            </SidebarWithHeader>
+          } />
+          <Route path="/tickets" element={
+            <SidebarWithHeader>
+              <TicketsPage />
+            </SidebarWithHeader>
+          } />
+          <Route path="/projects" element={
+            <SidebarWithHeader>
+              <ProjectsPage />
             </SidebarWithHeader>
           } />
         </Routes>

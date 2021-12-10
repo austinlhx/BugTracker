@@ -1,6 +1,4 @@
 import React from 'react'
-import SidebarWithHeader from '../../components/sidebar';
-import { Flex, Stack } from '@chakra-ui/react';
 import {
     Table,
     Thead,
@@ -8,7 +6,6 @@ import {
     Tr,
     Th,
     Td,
-    Box,
     useColorModeValue,
     Text,
     VStack,
@@ -16,7 +13,6 @@ import {
 } from '@chakra-ui/react'
 import DoughnutChart from '../../components/charts/doughnut';
 import { useSelector } from "react-redux";
-import PieChart from '../../components/charts/pie';
 
 const DashboardPage = () => {
     const ticket_type_data = {
@@ -122,7 +118,8 @@ const TicketsTable = () => {
         <VStack
             bg={useColorModeValue('white', 'gray.800')}
             boxShadow={'2xl'}
-            rounded={'20px'}>
+            rounded={'20px'}
+            padding={'10px'}>
             <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
                 Tickets
             </Text>
@@ -158,7 +155,8 @@ const ProjectsTable = () => {
         <VStack
             bg={useColorModeValue('white', 'gray.800')}
             boxShadow={'2xl'}
-            rounded={'20px'}>
+            rounded={'20px'}
+            padding={'10px'}>
             <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
                 Projects
             </Text>
