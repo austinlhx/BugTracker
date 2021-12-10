@@ -4,7 +4,8 @@ import {
     Stack,
     Button,
     Heading,
-    useColorModeValue
+    useColorModeValue,
+    Link
 } from '@chakra-ui/react';
 
 const LoginPage = () => {
@@ -28,15 +29,17 @@ const LoginPage = () => {
                     Login
                 </Heading>
                 <Stack spacing={6}>
-                    <Button
-                        size={'lg'}
-                        bg={'blue.400'}
-                        color={'white'}
-                        _hover={{
-                            bg: 'blue.500',
-                        }}>
-                        Login using Discord
-                    </Button>
+                    <Link href='http://localhost:4000/login'>
+                        <Button
+                            size={'lg'}
+                            bg={'blue.400'}
+                            color={'white'}
+                            _hover={{
+                                bg: 'blue.500',
+                            }}>
+                            Login using Discord
+                        </Button>
+                    </Link>
                 </Stack>
             </Stack>
         </Flex>
