@@ -2,7 +2,7 @@ const dao = require('../../db/projects/project-dao.js')
 
 //TODO: To be implemented...
 
-module.exports = (app) => {
+module.exports = (app, checkAuth) => {
     const createProject = (req, res) => {
         dao.createProject(req.body)
     }
@@ -39,10 +39,10 @@ module.exports = (app) => {
         dao.deleteProject(req.params.id)
     }
     
-    app.post('/api/projects', createProject)
-    app.get('/api/projects', findAllProjects)
-    app.get('/api/projects/:id', findProject)
-    app.put('/api/projects/edit/:id', editProject)
-    app.put('/api/projects/assign/:id', assignProject)
-    app.delete('/api/projects/:id', deleteProject)
+    app.post('/api/projects', checkAuth, createProject)
+    app.get('/api/projects', checkAuth, findAllProjects)
+    app.get('/api/projects/:id', checkAuth, findProject)
+    app.put('/api/projects/edit/:id', checkAuth, editProject)
+    app.put('/api/projects/:user_id/assign/:id', checkAuth, assignProject)
+    app.delete('/api/projects/:id', checkAuth, deleteProject)
 }

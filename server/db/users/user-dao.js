@@ -4,10 +4,10 @@ const createUser = (user) => model.create(user);
 
 const findAllUsers = () => model.find();
 
-const findUser = (id) => model.find({_id: id})
+const findUser = (email) => model.find({email: email})
 
-const updateUser = (id, information) =>
-    model.updateOne({_id: id},
+const updateUser = (user_id, information) =>
+    model.updateOne({_id: user_id},
         {
             $set: {
                 firstName: "To be implemented"

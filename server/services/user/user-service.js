@@ -2,7 +2,7 @@ const dao = require('../../db/users/user-dao.js')
 
 //TODO: To be implemented...
 
-module.exports = (app) => {
+module.exports = (app, checkAuth) => {
     const createUser = (req, res) => {
         console.log('create user')
         try {
@@ -37,11 +37,11 @@ module.exports = (app) => {
         dao.assignTicketToUser(req.params.id, req.params.user_id)
     }
 
-    app.post('/api/users', createUser)
-    app.get('/api/users', findAllUsers)
-    app.get('/api/users/:id', findUser)
-    app.put('/api/users/:id', updateUser)
-    app.put('/api/users/ticket/:id', assignTicketToUser)
+    app.post('/api/users', checkAuth, createUser)
+    app.get('/api/users', checkAuth, findAllUsers)
+    app.get('/api/users/:id', checkAuth, findUser)
+    app.put('/api/users/:id', checkAuth, updateUser)
+    app.put('/api/users/:user_id/ticket/:id', checkAuth, assignTicketToUser)
 
 
 }

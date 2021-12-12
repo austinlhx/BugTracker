@@ -1,28 +1,65 @@
 const express = require('express');
-
-const DiscordOauth2 = require("discord-oauth2");
-const crypto = require('crypto');
+const DiscordStrategy = require('passport-discord').Strategy;
+const session = require('express-session')
+const passport = require('passport')
 const dotenv = require('dotenv');
+const crypto = require('crypto');
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
+<<<<<<< HEAD
 const oauth = new DiscordOauth2({
     clientId: process.env.CLIENTID,
     clientSecret: process.env.CLIENT_SECRET,
     redirectUri: 'http://localhost:4000/callback'
 });
+=======
+>>>>>>> austinlhx-master
 
+const scopes = ['identify', 'email']
 
+const userDao = require('./db/users/user-dao')
 const app = express()
 const port = 4000
 
 mongoose.connect('mongodb://localhost:27017/bugtracker')
 dotenv.config();
 
+const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_SECRET = process.env.CLIENT_SECRET
+const SECRET = process.env.SECRET
+
+passport.use(new DiscordStrategy({
+    clientID: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    callbackURL: 'http://localhost:4000/callback',
+    scope: scopes
+}, function(accessToken, refreshToken, profile, done) {
+    process.nextTick(function() {
+        return done(null, profile);
+    });
+}))
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+  });
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({
+    secret: crypto.createHash('md5').update(SECRET).digest("hex"),
+    resave: false,
+    saveUninitialized: false
+}));
 
-app.get('/', (req, res) => {
-    res.send('Bug Tracker!')
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/', checkAuth, (req, res) => {
+    res.json(req.user)
 })
 
 app.listen(port, () => {
@@ -39,16 +76,11 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/login', (req, res) => {
-    console.log('Hit Login')
-    const url = oauth.generateAuthUrl({
-        scope: ["identify", "email"],
-        state: crypto.randomBytes(16).toString("hex")
-    })
-    console.log(url)
-    res.redirect(url);
+app.get('/login', passport.authenticate('discord', { scope: scopes }), (req, res) => {
+    console.log('redirected to oauth url')
 });
 
+<<<<<<< HEAD
 app.get('/callback', (req, res) => {
     //res.send('Logged In!')
     oauth.tokenRequest({
@@ -63,14 +95,38 @@ app.get('/callback', (req, res) => {
 
             res.redirect('http://localhost:3000/dashboard')
             res.json(user)
+=======
+app.get('/callback',
+    passport.authenticate('discord', { failureRedirect: 'http://localhost:3000/' }), 
+    (req, res) => { 
+        const email = req.user.email;
+        userDao.findUser(email).then(user => {
+            if (user.length == 0){
+                res.redirect('http://localhost:3000/register')
+            }else{
+                console.log(user)
+                res.redirect('http://localhost:3000/dashboard')
+            }
+>>>>>>> 7a1441d4fa8b2b08cef55544651474849653f54f
         })
-    }).catch((e) => {
-        console.log(e.message);
-        console.log(e.response)
-    })
+         } 
+);
 
+app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/loggedout');
+});
+
+app.get('/loggedout', function(req, res){
+    res.send('logged out')
 })
 
-require('./services/user/user-service')(app);
-require('./services/ticket/ticket-service')(app);
-require('./services/projects/project-service')(app);
+function checkAuth(req, res, next) {
+    if (req.isAuthenticated()) return next();
+    res.redirect('/login')
+}
+
+
+require('./services/user/user-service')(app, checkAuth);
+require('./services/ticket/ticket-service')(app, checkAuth);
+require('./services/projects/project-service')(app, checkAuth);
