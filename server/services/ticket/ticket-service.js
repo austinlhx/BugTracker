@@ -2,7 +2,7 @@ const dao = require('../../db/tickets/ticket-dao.js')
 
 //TODO: To be implemented...
 
-module.exports = (app) => {
+module.exports = (app, checkAuth) => {
     const createTicket = (req, res) => {
         dao.createTicket(req.body)
     }
@@ -39,10 +39,10 @@ module.exports = (app) => {
         dao.deleteTicket(req.params.id)
     }
     
-    app.post('/api/tickets', createTicket)
-    app.get('/api/tickets', findAllTickets)
-    app.get('/api/tickets/:id', findTicket)
-    app.put('/api/tickets/edit/:id', editTicket)
-    app.put('/api/tickets/assign/:id', assignTicket)
-    app.delete('/api/tickets/:id', deleteTicket)
+    app.post('/api/tickets', checkAuth, createTicket)
+    app.get('/api/tickets', checkAuth, findAllTickets)
+    app.get('/api/tickets/:id', checkAuth, findTicket)
+    app.put('/api/tickets/edit/:id', checkAuth, editTicket)
+    app.put('/api/tickets/assign/:id', checkAuth, assignTicket)
+    app.delete('/api/tickets/:id', checkAuth, deleteTicket)
 }
