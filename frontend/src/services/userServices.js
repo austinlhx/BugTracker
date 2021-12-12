@@ -41,3 +41,11 @@ export const assignTicketToUser = (user, ticket) =>
         }
     })
         .then(response => response.json())
+
+export default {
+    createUser,
+    findAllUsers,
+    findUser,
+    updateUser,
+    assignTicketToUser
+}

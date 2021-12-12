@@ -6,14 +6,6 @@ const dotenv = require('dotenv');
 const crypto = require('crypto');
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
-<<<<<<< HEAD
-const oauth = new DiscordOauth2({
-    clientId: process.env.CLIENTID,
-    clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: 'http://localhost:4000/callback'
-});
-=======
->>>>>>> austinlhx-master
 
 const scopes = ['identify', 'email']
 
@@ -33,18 +25,18 @@ passport.use(new DiscordStrategy({
     clientSecret: CLIENT_SECRET,
     callbackURL: 'http://localhost:4000/callback',
     scope: scopes
-}, function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function() {
+}, function (accessToken, refreshToken, profile, done) {
+    process.nextTick(function () {
         return done(null, profile);
     });
 }))
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
     done(null, user);
-  });
-  passport.deserializeUser(function(obj, done) {
+});
+passport.deserializeUser(function (obj, done) {
     done(null, obj);
-  });
+});
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -80,44 +72,27 @@ app.get('/login', passport.authenticate('discord', { scope: scopes }), (req, res
     console.log('redirected to oauth url')
 });
 
-<<<<<<< HEAD
-app.get('/callback', (req, res) => {
-    //res.send('Logged In!')
-    oauth.tokenRequest({
-        code: req.query.code,
-        scope: 'identify email',
-        grantType: 'authorization_code'
-    }).then(token => {
-        console.log(token)
-        oauth.getUser(token.access_token).then(user => {
-            //req.session.user = user
-            console.log(user)
-
-            res.redirect('http://localhost:3000/dashboard')
-            res.json(user)
-=======
 app.get('/callback',
-    passport.authenticate('discord', { failureRedirect: 'http://localhost:3000/' }), 
-    (req, res) => { 
+    passport.authenticate('discord', { failureRedirect: 'http://localhost:3000/' }),
+    (req, res) => {
         const email = req.user.email;
         userDao.findUser(email).then(user => {
-            if (user.length == 0){
+            if (user.length == 0) {
                 res.redirect('http://localhost:3000/register')
-            }else{
+            } else {
                 console.log(user)
                 res.redirect('http://localhost:3000/dashboard')
             }
->>>>>>> 7a1441d4fa8b2b08cef55544651474849653f54f
         })
-         } 
+    }
 );
 
-app.get('/logout', function(req, res) {
+app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/loggedout');
 });
 
-app.get('/loggedout', function(req, res){
+app.get('/loggedout', function (req, res) {
     res.send('logged out')
 })
 
