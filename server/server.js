@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const oauth = new DiscordOauth2({
     clientId: process.env.CLIENTID,
-    clientSecret: proccess.env.CLIENT_SECRET,
+    clientSecret: process.env.CLIENT_SECRET,
     redirectUri: 'http://localhost:4000/callback'
 });
 

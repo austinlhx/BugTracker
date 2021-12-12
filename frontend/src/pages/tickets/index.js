@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Table,
     Thead,
@@ -8,13 +8,18 @@ import {
     Td,
     useColorModeValue,
     Box,
+    Button,
     chakra
 } from '@chakra-ui/react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 import { useTable, useSortBy } from 'react-table'
+import ticketServices from '../../services/ticketServices';
 
 const TicketsPage = () => {
+    const [tickets2, setTickets] = useState([]);
+    useEffect(() => ticketServices.findAllTickets()
+        .then(tickets2 => setTickets(tickets2)), []);
     const tickets = useSelector((state) => state.tickets);
     const data = React.useMemo(
         () => tickets,
