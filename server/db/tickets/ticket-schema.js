@@ -1,22 +1,25 @@
 const mongoose = require('mongoose')
 const schema = mongoose.Schema({
-    title: String,
+    name: String,
     description: String,
-    ticketStatus: {
+    project: String,
+    submitter: String,
+    status: {
         type: String,
-        enum: ['Open', 'Closed'],
-        default: 'Open'
+        enum: ['New', 'In Progress', 'Resolved'],
+        default: 'New'
     },
-    ticketType: {
+    priority: {
         type: String,
-        enum: ['Bugs', 'Improvements']
+        enum: ['Low', 'Medium', 'High']
     },
-    assignedTo: String,
+    type: {
+        type: String,
+        enum: ['Bugs', 'Feature Request', 'Customer Issue']
+    },
+    assigned_developer: String,
     //TODO: assignedTo: should we assign it to type User Schema?
-    timeStamps: {
-        dateCreated: {type: Date, defaultValue: Date.now},
-        dateUpdated: {type: Date}
-    }
+    created_date: {type: Date, defaultValue: Date.now}
 }, {collection: 'tickets'});
 
 module.exports = schema;

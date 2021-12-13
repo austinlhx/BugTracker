@@ -102,7 +102,7 @@ function checkAuth(req, res, next) {
         const userName = req.user.userName;
         userDao.findUser(email).then(user => {
             if (user.length == 0) {
-                res.redirect('http://localhost:3000/register/?email=' + email + '&?username=' + userName)
+                res.redirect('http://localhost:3000/register/?email=' + email + '&username=' + userName)
             } else {
                 return next();
             }
