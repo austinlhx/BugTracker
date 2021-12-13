@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
 const schema = mongoose.Schema({
-    projectName: String,
+    name: String,
+    description: String,
     tickets: [String],
-    date: { type: Date, default: Date.now}
+    developers: [String],
+    created_date: { type: Date, default: Date.now}
 }, {collection: 'users'});
 
 

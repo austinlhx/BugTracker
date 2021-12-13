@@ -9,6 +9,7 @@ const schema = mongoose.Schema({
         enum: ['Admin', 'Developer']
     },
     date: { type: Date, default: Date.now},
+    assignedProject: String,
     assignedTickets: [String]
 }, {collection: 'users'});
 
