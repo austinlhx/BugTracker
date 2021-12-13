@@ -1,7 +1,7 @@
 const PROJECT_API = 'http://localhost:4000/api/projects'
 
-export const createProject = (newProject) =>
-    fetch(PROJECT_API, {
+export const createProject = (newProject) => {
+    return fetch(PROJECT_API, {
         method: 'POST',
         body: JSON.stringify(newProject),
         headers: {
@@ -9,19 +9,23 @@ export const createProject = (newProject) =>
         }
     })
         .then(response => response.json())
+}
+
 
 export const findAllProjects = () => {
-    fetch(PROJECT_API)
+    return fetch(PROJECT_API)
         .then(response => response.json())
 }
 
-export const findproject = (project) =>
-    fetch(`${PROJECT_API} / ${project._id}`)
+export const findproject = (project) => {
+    return fetch(`${PROJECT_API} / ${project._id}`)
         .then(response => response.json());
+}
 
 
-export const editProject = (project) =>
-    fetch(`${PROJECT_API} / ${project._id}`, {
+
+export const editProject = (project) => {
+    return fetch(`${PROJECT_API} / ${project._id}`, {
         method: 'PUT',
         body: JSON.stringify(project),
         headers: {
@@ -29,11 +33,13 @@ export const editProject = (project) =>
         }
     })
         .then(response => response.json())
+}
 
 
 
-export const assignProject = (user, project) =>
-    fetch(`${PROJECT_API} / ${user._id} / assign / ${project._id}`, {
+
+export const assignProject = (user, project) => {
+    return fetch(`${PROJECT_API} / ${user._id} / assign / ${project._id}`, {
         method: 'PUT',
         body: JSON.stringify(project),
         headers: {
@@ -41,9 +47,11 @@ export const assignProject = (user, project) =>
         }
     })
         .then(response => response.json())
+}
 
-export const deleteProject = (project) =>
-    fetch(`${PROJECT_API} / ${project._id}`, {
+
+export const deleteProject = (project) => {
+    return fetch(`${PROJECT_API} / ${project._id}`, {
         method: 'DELETE',
         body: JSON.stringify(project),
         headers: {
@@ -51,6 +59,8 @@ export const deleteProject = (project) =>
         }
     })
         .then(response => response.json())
+}
+
 
 export default {
     createProject,

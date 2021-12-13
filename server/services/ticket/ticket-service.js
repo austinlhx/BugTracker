@@ -21,7 +21,7 @@ module.exports = (app, checkAuth) => {
             });
     }
 
-    const editTicket = (req, res) => { 
+    const editTicket = (req, res) => {
         dao.editTicket(req.params.id)
             .then(ticket => {
                 console.log(ticket)
@@ -38,7 +38,7 @@ module.exports = (app, checkAuth) => {
     const deleteTicket = (req, res) => {
         dao.deleteTicket(req.params.id)
     }
-    
+
     app.post('/api/tickets', checkAuth, createTicket)
     app.get('/api/tickets', checkAuth, findAllTickets)
     app.get('/api/tickets/:id', checkAuth, findTicket)
