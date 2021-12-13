@@ -25,18 +25,18 @@ passport.use(new DiscordStrategy({
     clientSecret: CLIENT_SECRET,
     callbackURL: 'http://localhost:4000/callback',
     scope: scopes
-}, function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function() {
+}, function (accessToken, refreshToken, profile, done) {
+    process.nextTick(function () {
         return done(null, profile);
     });
 }))
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
     done(null, user);
-  });
-  passport.deserializeUser(function(obj, done) {
+});
+passport.deserializeUser(function (obj, done) {
     done(null, obj);
-  });
+});
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -73,26 +73,26 @@ app.get('/login', passport.authenticate('discord', { scope: scopes }), (req, res
 });
 
 app.get('/callback',
-    passport.authenticate('discord', { failureRedirect: 'http://localhost:3000/' }), 
-    (req, res) => { 
+    passport.authenticate('discord', { failureRedirect: 'http://localhost:3000/' }),
+    (req, res) => {
         const email = req.user.email;
         userDao.findUser(email).then(user => {
-            if (user.length == 0){
+            if (user.length == 0) {
                 res.redirect('http://localhost:3000/register')
-            }else{
+            } else {
                 console.log(user)
                 res.redirect('http://localhost:3000/dashboard')
             }
         })
-         } 
+    }
 );
 
-app.get('/logout', function(req, res) {
+app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/loggedout');
 });
 
-app.get('/loggedout', function(req, res){
+app.get('/loggedout', function (req, res) {
     res.send('logged out')
 })
 
