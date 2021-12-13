@@ -97,8 +97,21 @@ app.get('/loggedout', function (req, res) {
 })
 
 function checkAuth(req, res, next) {
-    if (req.isAuthenticated()) return next();
-    res.redirect('/login')
+    if (req.isAuthenticated()) {
+        const email = req.user.email;
+        const userName = req.user.userName;
+        userDao.findUser(email).then(user => {
+            if (user.length == 0) {
+                res.redirect('http://localhost:3000/register/?email=' + email + '&?username=' + userName)
+            } else {
+                return next();
+            }
+        })
+    }else {
+        res.redirect('/login')
+    }   
+
+    
 }
 
 
