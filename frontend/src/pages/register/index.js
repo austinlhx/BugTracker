@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Flex,
     Box,
@@ -13,8 +13,58 @@ import {
     RadioGroup,
     Radio
 } from '@chakra-ui/react';
+import userServices from '../../services/userServices';
 
 const RegisterPage = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const username = queryParams.get('username');
+    const email = queryParams.get('email');
+
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [role, setRole] = useState();
+    const handleChange = e => {
+        const target = e.target;
+        if (target.checked) {
+            setRole(target.value);
+        }
+    };
+
+    const handleSubmit = () => {
+        const newUser = {
+            username: username,
+            name: {
+                first: firstName,
+                last: lastName
+            },
+            email: email,
+            role: role,
+            joined_date: new Date().toLocaleDateString(),
+            project: "Project 1",
+            tickets: {
+                priority: {
+                    low: 0,
+                    medium: 0,
+                    high: 0
+                },
+                status: {
+                    new: 0,
+                    in_progress: 0,
+                    resolved: 0
+                },
+                type: {
+                    bug: 0,
+                    feature_request: 0,
+                    customer_issue: 0
+                },
+                id_list: []
+            }
+        }
+
+        userServices.createUser(newUser).then(user => console.log(user));
+
+    }
+
     return (
         <Flex
             minH={'100vh'}
@@ -37,28 +87,26 @@ const RegisterPage = () => {
                             <Box>
                                 <FormControl id="firstName" isRequired>
                                     <FormLabel>First Name</FormLabel>
-                                    <Input type="text" />
+                                    <Input type="text" onInput={e => setFirstName(e.target.value)} />
                                 </FormControl>
                             </Box>
                             <Box>
                                 <FormControl id="lastName" isRequired>
                                     <FormLabel>Last Name</FormLabel>
-                                    <Input type="text" />
+                                    <Input type="text" onInput={e => setLastName(e.target.value)} />
                                 </FormControl>
                             </Box>
                         </HStack>
-                        <FormControl id="email" isRequired>
-                            <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
-                        </FormControl>
                         <RadioGroup>
                             <Stack direction="row">
-                                <Radio value="dev">Developer</Radio>
-                                <Radio value="admin">Admin</Radio>
+                                <Radio value="Developer" onChange={e => setRole(e.target.value)}>Developer</Radio>
+                                <Radio value="Admin" onChange={e => setRole(e.target.value)}>Admin</Radio>
                             </Stack>
                         </RadioGroup>
                         <Stack spacing={10} pt={2}>
                             <Button
+                                type={'submit'}
+                                onClick={handleSubmit}
                                 loadingText="Submitting"
                                 size="lg"
                                 bg={'blue.400'}
