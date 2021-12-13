@@ -76,11 +76,11 @@ app.get('/callback',
     passport.authenticate('discord', { failureRedirect: 'http://localhost:3000/' }),
     (req, res) => {
         const email = req.user.email;
+        const userName = req.user.username;
         userDao.findUser(email).then(user => {
             if (user.length == 0) {
-                res.redirect('http://localhost:3000/register')
+                res.redirect('http://localhost:3000/register/?email=' + email + '&?username=' + userName)
             } else {
-                console.log(user)
                 res.redirect('http://localhost:3000/dashboard')
             }
         })
