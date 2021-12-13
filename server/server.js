@@ -79,7 +79,7 @@ app.get('/callback',
         const userName = req.user.username;
         userDao.findUser(email).then(user => {
             if (user.length == 0) {
-                res.redirect('http://localhost:3000/register/?email=' + email + '&?username=' + userName)
+                res.redirect('http://localhost:3000/register/?email=' + email + '&username=' + userName)
             } else {
                 res.redirect('http://localhost:3000/dashboard')
             }
@@ -107,11 +107,11 @@ function checkAuth(req, res, next) {
                 return next();
             }
         })
-    }else {
+    } else {
         res.redirect('/login')
-    }   
+    }
 
-    
+
 }
 
 

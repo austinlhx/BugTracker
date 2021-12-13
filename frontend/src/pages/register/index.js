@@ -31,6 +31,16 @@ const RegisterPage = () => {
     };
 
     const handleSubmit = () => {
+        const newUser2 = {
+            userName: username,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            role: role,
+            assignedProject: '',
+            assignedTickets: []
+        }
+
         const newUser = {
             username: username,
             name: {
@@ -40,7 +50,7 @@ const RegisterPage = () => {
             email: email,
             role: role,
             joined_date: new Date().toLocaleDateString(),
-            project: "Project 1",
+            project: "",
             tickets: {
                 priority: {
                     low: 0,
@@ -60,7 +70,7 @@ const RegisterPage = () => {
                 id_list: []
             }
         }
-
+        console.log(newUser);
         userServices.createUser(newUser).then(user => console.log(user));
 
     }

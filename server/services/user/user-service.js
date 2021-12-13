@@ -8,11 +8,12 @@ module.exports = (app, checkAuth) => {
         try {
             console.log(req.body)
             dao.createUser(req.body)
+            res.redirect('http://localhost:3000/dashboard')
         }
-        catch(e) {
+        catch (e) {
             console.log('Error: ', e)
         }
-        
+
     }
 
     const findAllUsers = (req, res) => {
@@ -37,7 +38,7 @@ module.exports = (app, checkAuth) => {
         dao.assignTicketToUser(req.params.id, req.params.user_id)
     }
 
-    app.post('/api/users', checkAuth, createUser)
+    app.post('/api/users', createUser)
     app.get('/api/users', checkAuth, findAllUsers)
     app.get('/api/users/:id', checkAuth, findUser)
     app.put('/api/users/:id', checkAuth, updateUser)
