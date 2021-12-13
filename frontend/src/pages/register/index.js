@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Flex,
     Box,
@@ -15,6 +15,12 @@ import {
 } from '@chakra-ui/react';
 
 const RegisterPage = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const email = queryParams.get('email');
+    const username = queryParams.get('username');
+
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
     return (
         <Flex
             minH={'100vh'}
@@ -37,7 +43,7 @@ const RegisterPage = () => {
                             <Box>
                                 <FormControl id="firstName" isRequired>
                                     <FormLabel>First Name</FormLabel>
-                                    <Input type="text" />
+                                    <Input type="text" value={ } />
                                 </FormControl>
                             </Box>
                             <Box>
@@ -47,10 +53,6 @@ const RegisterPage = () => {
                                 </FormControl>
                             </Box>
                         </HStack>
-                        <FormControl id="email" isRequired>
-                            <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
-                        </FormControl>
                         <RadioGroup>
                             <Stack direction="row">
                                 <Radio value="dev">Developer</Radio>
