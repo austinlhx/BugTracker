@@ -37,7 +37,7 @@ module.exports = (app, checkAuth) => {
         dao.assignTicketToUser(req.params.id, req.params.user_id)
     }
 
-    app.post('/api/users', checkAuth, createUser)
+    app.post('/api/users', createUser)
     app.get('/api/users', checkAuth, findAllUsers)
     app.get('/api/users/:id', checkAuth, findUser)
     app.put('/api/users/:id', checkAuth, updateUser)
