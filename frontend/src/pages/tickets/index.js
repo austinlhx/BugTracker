@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
     Table,
     Thead,
@@ -8,30 +8,90 @@ import {
     Td,
     useColorModeValue,
     Box,
-    chakra
+    chakra,
+    Button,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+    VStack,
+    Heading,
+    Text,
+    HStack
 } from '@chakra-ui/react';
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
-import { useTable, useSortBy } from 'react-table'
+import { useTable, useSortBy, useFilters } from 'react-table'
 import ticketServices from '../../services/ticketServices';
+import { Filter, DefaultColumnFilter } from './filter';
 
 const TicketsPage = () => {
-    const [tickets2, setTickets] = useState([]);
+    // hooks for the modals
+    const TicketStat = ({ heading, stat }) => {
+        return (
+            <VStack>
+                <Heading fontSize={'2xl'} textAlign={'center'}>
+                    {heading}
+                </Heading>
+                <Text>{stat}</Text>
+            </VStack>
+        )
+    }
+
+    const Details = (row) => {
+        const { isOpen, onOpen, onClose } = useDisclosure();
+        return (
+            <>
+                <Button onClick={onOpen}>Details</Button>
+                <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Details</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <HStack>
+                                <VStack>
+                                    <TicketStat heading={'Name'} stat={row.row.name} />
+                                    <TicketStat heading={'Id'} stat={row.row._id} />
+                                    <TicketStat heading={'Description'} stat={row.row.description} />
+                                    <TicketStat heading={'Submitter'} stat={row.row.submitter} />
+                                </VStack>
+                                <VStack>
+                                    <TicketStat heading={'Assigned Dev'} stat={row.row.assigned_developer} />
+                                    <TicketStat heading={'priority'} stat={row.row.priority} />
+                                    <TicketStat heading={'status'} stat={row.row.status} />
+                                    <TicketStat heading={'type'} stat={row.row.type} />
+                                </VStack>
+                            </HStack>
+
+                        </ModalBody>
+                        <ModalFooter>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            </>
+        )
+    }
+
+    // hook for getting tickets from the backend
+    const [tickets, setTickets] = useState([]);
     useEffect(() => ticketServices.findAllTickets()
-        .then(tickets2 => setTickets(tickets2)), []);
-    const data = React.useMemo(
-        () => tickets2,
-        [tickets2],
+        .then(tickets => setTickets(tickets)), []);
+
+    // hooks for rendering the table
+    const data = useMemo(
+        () => tickets,
+        [tickets],
     )
 
-    const columns = React.useMemo(
+    const columns = useMemo(
         () => [
             {
                 Header: 'Name',
                 accessor: 'name',
-            },
-            {
-                Header: 'Description',
-                accessor: 'description',
             },
             {
                 Header: 'Project',
@@ -61,12 +121,22 @@ const TicketsPage = () => {
                 Header: 'Create Date',
                 accessor: 'created_date',
             },
+            {
+                Header: "Action",
+                accessor: "action",
+                disableFilters: true,
+                Cell: ({ row }) => {
+                    return (
+                        <Details row={row.original} />
+                    )
+                }
+            }
         ],
         [],
     )
 
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-        useTable({ columns, data }, useSortBy)
+        useTable({ columns, data, defaultColumn: { Filter: DefaultColumnFilter } }, useFilters, useSortBy)
 
     return (
         <Box
@@ -83,16 +153,21 @@ const TicketsPage = () => {
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
                                     isNumeric={column.isNumeric}
                                 >
-                                    {column.render('Header')}
-                                    <chakra.span pl='4'>
-                                        {column.isSorted ? (
-                                            column.isSortedDesc ? (
-                                                <TriangleDownIcon aria-label='sorted descending' />
-                                            ) : (
-                                                <TriangleUpIcon aria-label='sorted ascending' />
-                                            )
-                                        ) : null}
-                                    </chakra.span>
+                                    <Box>
+                                        {column.render('Header')}
+                                        <chakra.span pl='4'>
+                                            {column.isSorted ? (
+                                                column.isSortedDesc ? (
+                                                    <TriangleDownIcon aria-label='sorted descending' />
+                                                ) : (
+                                                    <TriangleUpIcon aria-label='sorted ascending' />
+                                                )
+                                            ) : null}
+
+                                        </chakra.span>
+                                    </Box>
+
+                                    <Filter column={column} />
                                 </Th>
                             ))}
                         </Tr>
