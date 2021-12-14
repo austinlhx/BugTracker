@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import {
     Flex,
     Box,
@@ -23,15 +24,11 @@ const RegisterPage = () => {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [role, setRole] = useState();
-    const handleChange = e => {
-        const target = e.target;
-        if (target.checked) {
-            setRole(target.value);
-        }
-    };
+    const navigate = useNavigate();
 
     const handleSubmit = () => {
-        const newUser2 = {
+
+        const newUser = {
             userName: username,
             firstName: firstName,
             lastName: lastName,
@@ -41,37 +38,7 @@ const RegisterPage = () => {
             assignedTickets: []
         }
 
-        const newUser = {
-            username: username,
-            name: {
-                first: firstName,
-                last: lastName
-            },
-            email: email,
-            role: role,
-            joined_date: new Date().toLocaleDateString(),
-            project: "",
-            tickets: {
-                priority: {
-                    low: 0,
-                    medium: 0,
-                    high: 0
-                },
-                status: {
-                    new: 0,
-                    in_progress: 0,
-                    resolved: 0
-                },
-                type: {
-                    bug: 0,
-                    feature_request: 0,
-                    customer_issue: 0
-                },
-                id_list: []
-            }
-        }
-        console.log(newUser);
-        userServices.createUser(newUser).then(user => console.log(user));
+        userServices.createUser(newUser).then(res => navigate('/dashboard'));
 
     }
 

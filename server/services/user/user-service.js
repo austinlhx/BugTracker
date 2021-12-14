@@ -6,7 +6,6 @@ module.exports = (app, checkAuth) => {
     const createUser = (req, res) => {
         console.log('create user')
         try {
-            console.log(req.body)
             dao.createUser(req.body)
             res.redirect('http://localhost:3000/dashboard')
         }
