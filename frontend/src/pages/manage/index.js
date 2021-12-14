@@ -14,31 +14,39 @@ import { useSelector } from "react-redux";
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 import { useTable, useSortBy } from 'react-table'
 import SidebarWithHeader from '../../components/sidebar';
-import projectServices from '../../services/projectServices';
+import userServices from '../../services/userServices';
 
-const ProjectsPage = () => {
+const ManageUserPage = () => {
     // const projects = useSelector((state) => state.projects);
-    const [projects, setProjects] = useState([]);
-    useEffect(() => projectServices.findAllProjects()
-        .then(res => setProjects(res)), []);
+    const [users, setUser] = useState([]);
+    useEffect(() => userServices.findAllUsers()
+        .then(res => setUser(res)), []);
     const data = React.useMemo(
-        () => projects,
-        [projects],
+        () => users,
+        [users],
     )
 
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Name',
-                accessor: 'name',
+                Header: 'First Name',
+                accessor: 'firstName',
             },
             {
-                Header: 'Description',
-                accessor: 'description',
+                Header: 'Last Name',
+                accessor: 'lastName',
             },
             {
-                Header: 'Create Date',
-                accessor: 'created_date',
+                Header: 'Email',
+                accessor: 'email',
+            },
+            {
+                Header: 'Role',
+                accessor: 'role',
+            },
+            {
+                Header: 'Join Date',
+                accessor: 'date',
             }
         ],
         [],
@@ -98,5 +106,4 @@ const ProjectsPage = () => {
     )
 }
 
-export default ProjectsPage
-
+export default ManageUserPage

@@ -3,7 +3,7 @@
 const users = (state, action) => {
     switch (action.type) {
         case 'add-user':
-            return state
+            return action.newUser
         default:
             return null
     }

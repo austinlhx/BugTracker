@@ -28,10 +28,20 @@ import {
 import {
     MdDashboard
 } from 'react-icons/md';
+
+import {
+    GrUserAdmin
+} from 'react-icons/gr'
+
+import {
+    BiUserCircle
+} from 'react-icons/bi'
+
 import { GrProjects } from "react-icons/gr";
 import { HiOutlineTicket } from "react-icons/hi";
+import { useSelector, useDispatch } from 'react-redux';
 
-const LinkItems = [
+let LinkItems = [
     { name: 'DashBoard', icon: MdDashboard, route: '\\dashboard' },
     { name: 'Tickets', icon: HiOutlineTicket, route: "\\tickets" },
     { name: 'Projects', icon: GrProjects, route: '\\projects' },
@@ -39,6 +49,19 @@ const LinkItems = [
 ];
 
 export default function SidebarWithHeader({ children }) {
+    // const user = useSelector(state => state.users)
+    const user = {
+        userName: "Duy Tran",
+        firstName: "Duy",
+        lastName: "Tran",
+        email: "duytv2303@gmail.com",
+        role: "Admin",
+        assignedProject: '',
+        assignedTickets: []
+    }
+    if (user.role == 'Developer') {
+        LinkItems = LinkItems.slice(0, 2)
+    }
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -128,6 +151,16 @@ const NavItem = ({ route, icon, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+    // const user = useSelector(state => state.users)
+    const user = {
+        userName: "Duy Tran",
+        firstName: "Duy",
+        lastName: "Tran",
+        email: "duytv2303@gmail.com",
+        role: "Admin",
+        assignedProject: '',
+        assignedTickets: []
+    }
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -165,18 +198,16 @@ const MobileNav = ({ onOpen, ...rest }) => {
                             <HStack>
                                 <Avatar
                                     size={'sm'}
-                                    src={
-                                        'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                                    }
+                                    src={BiUserCircle}
                                 />
                                 <VStack
                                     display={{ base: 'none', md: 'flex' }}
                                     alignItems="flex-start"
                                     spacing="1px"
                                     ml="2">
-                                    <Text fontSize="sm">Duy Tran</Text>
+                                    <Text fontSize="sm">{user.firstName} {user.lastName}</Text>
                                     <Text fontSize="xs" color="gray.600">
-                                        Admin
+                                        {user.role}
                                     </Text>
                                 </VStack>
                                 <Box display={{ base: 'none', md: 'flex' }}>

@@ -21,7 +21,7 @@ module.exports = (app, checkAuth) => {
             });
     }
 
-    const editProject = (req, res) => { 
+    const editProject = (req, res) => {
         dao.editProject(req.params.id)
             .then(Project => {
                 console.log(Project)
@@ -38,9 +38,9 @@ module.exports = (app, checkAuth) => {
     const deleteProject = (req, res) => {
         dao.deleteProject(req.params.id)
     }
-    
+
     app.post('/api/projects', checkAuth, createProject)
-    app.get('/api/projects', checkAuth, findAllProjects)
+    app.get('/api/projects', findAllProjects)
     app.get('/api/projects/:id', checkAuth, findProject)
     app.put('/api/projects/edit/:id', checkAuth, editProject)
     app.put('/api/projects/:user_id/assign/:id', checkAuth, assignProject)

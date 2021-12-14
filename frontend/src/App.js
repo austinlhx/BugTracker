@@ -8,9 +8,10 @@ import { Provider } from "react-redux";
 import users from "./reducer/users";
 import projects from "./reducer/projects";
 import tickets from "./reducer/tickets";
-import SidebarWithHeader from './components/sidebar';
 import TicketsPage from './pages/tickets';
 import ProjectsPage from './pages/projects';
+import RedirectPage from './pages/redirect';
+import ManageUserPage from './pages/manage';
 
 const reducer = combineReducers({ users, projects, tickets });
 const store = createStore(reducer)
@@ -25,19 +26,19 @@ function App() {
 
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/dashboard" element={
-            <SidebarWithHeader>
-              <DashboardPage />
-            </SidebarWithHeader>
+            <DashboardPage />
           } />
           <Route path="/tickets" element={
-            <SidebarWithHeader>
-              <TicketsPage />
-            </SidebarWithHeader>
+            <TicketsPage />
           } />
           <Route path="/projects" element={
-            <SidebarWithHeader>
-              <ProjectsPage />
-            </SidebarWithHeader>
+            <ProjectsPage />
+          } />
+          {/* <Route path="/redirect" element={
+            <RedirectPage />
+          } /> */}
+          <Route path="/manage" element={
+            <ManageUserPage />
           } />
         </Routes>
       </BrowserRouter>
