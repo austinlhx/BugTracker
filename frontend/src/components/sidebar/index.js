@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     IconButton,
     Avatar,
@@ -40,6 +40,7 @@ import {
 import { GrProjects } from "react-icons/gr";
 import { HiOutlineTicket } from "react-icons/hi";
 import { useSelector, useDispatch } from 'react-redux';
+import userServices from '../../services/userServices';
 
 let LinkItems = [
     { name: 'DashBoard', icon: MdDashboard, route: '\\dashboard' },
@@ -49,7 +50,37 @@ let LinkItems = [
 ];
 
 export default function SidebarWithHeader({ children }) {
+    // const dispatch = useDispatch();
+    // const queryParams = new URLSearchParams(window.location.search);
+    // const email = queryParams.get('email');
+    // const [user2, setUser] = useState([]);
+    // useEffect(() => userServices.findUser(email)
+    //     .then(res => setUser(res[0])), []);
+    // if (user2 != null) {
+    //     const action = {
+    //         type: 'add-user',
+    //         newUser: user2
+    //     };
+    //     dispatch(action);
+    // }
     // const user = useSelector(state => state.users)
+
+    // console.log(email)
+    // console.log(user2)
+    // const [user3, setUser] = useState();
+    // userServices.findUser(user2.email)
+    //     .then(res => setUser(res[0]));
+    // console.log(user3)
+    // const user = user3
+
+    // const [retrievedUser, setRevUser] = useState()
+    // const [user, setUser] = useState()
+
+    // useEffect(() => userServices.retrieveUser().then(res => setRevUser(res)), [])
+    // useEffect(() => userServices.findUser(email)
+    // .then(res => setUser(res[0])), []);
+    // console.log(retrievedUser);
+
     const user = {
         userName: "Duy Tran",
         firstName: "Duy",
@@ -59,9 +90,9 @@ export default function SidebarWithHeader({ children }) {
         assignedProject: '',
         assignedTickets: []
     }
-    if (user.role == 'Developer') {
-        LinkItems = LinkItems.slice(0, 2)
-    }
+
+    LinkItems = LinkItems.slice(0, 2)
+
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -82,7 +113,7 @@ export default function SidebarWithHeader({ children }) {
                 </DrawerContent>
             </Drawer>
             {/* mobilenav */}
-            <MobileNav onOpen={onOpen} />
+            <MobileNav onOpen={onOpen} user={user} />
             <Box ml={{ base: 0, md: 60 }} p="4">
                 {children}
             </Box>
@@ -150,17 +181,17 @@ const NavItem = ({ route, icon, children, ...rest }) => {
     );
 };
 
-const MobileNav = ({ onOpen, ...rest }) => {
-    // const user = useSelector(state => state.users)
-    const user = {
-        userName: "Duy Tran",
-        firstName: "Duy",
-        lastName: "Tran",
-        email: "duytv2303@gmail.com",
-        role: "Admin",
-        assignedProject: '',
-        assignedTickets: []
-    }
+const MobileNav = ({ onOpen, user, ...rest }) => {
+    // console.log(user);
+    // const user = {
+    //     userName: "Duy Tran",
+    //     firstName: "Duy",
+    //     lastName: "Tran",
+    //     email: "duytv2303@gmail.com",
+    //     role: "Admin",
+    //     assignedProject: '',
+    //     assignedTickets: []
+    // }
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -221,7 +252,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                             <MenuItem>Profile</MenuItem>
                             <MenuItem>Settings</MenuItem>
                             <MenuDivider />
-                            <MenuItem>Sign out</MenuItem>
+                            <MenuItem><Link href='http://localhost:4000/loggedout'>Sign out</Link></MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>

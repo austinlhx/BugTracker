@@ -17,8 +17,8 @@ export const findAllTickets = () => {
         .then(response => response.json())
 }
 
-export const findticket = (ticket) => {
-    return fetch(`${TICKET_API} / ${ticket._id}`)
+export const findticket = (id) => {
+    return fetch(`${TICKET_API}/${id}`)
         .then(response => response.json());
 }
 

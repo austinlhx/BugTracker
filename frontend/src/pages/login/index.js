@@ -5,8 +5,56 @@ import {
     Button,
     Heading,
     useColorModeValue,
-    Link
+    Link,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+    Text,
+    UnorderedList,
+    ListItem
 } from '@chakra-ui/react';
+
+const PrivacyPolicy = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    return (
+        <>
+            <Button onClick={onOpen}>Privacy Policy</Button>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Privacy Policy</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Text>
+                            When a user registers on the bug tracker through Discord,
+                            we collect and store the following information:
+                        </Text>
+                        <UnorderedList>
+                            <ListItem>Discord Username</ListItem>
+                            <ListItem>Email Address</ListItem>
+                            <ListItem>First and Last Name</ListItem>
+                        </UnorderedList>
+                        <Text>
+                            Personal information is primarily used to provide login authentication and personalization.
+                            All authentication is done through Oauth, and we will not ask you for your password.
+                            Only the developers who are on the same project as you and the admin can see this information,
+                            mainly to identify and contact you for more information. We are storing this information through
+                            the MongoDB database and protecting it so that only authenticated users (that have logged in through Discord)
+                            can get access to the information. Users can see their information through their profile and change their first
+                            and last name.
+                        </Text>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
+        </>
+    )
+}
 
 const LoginPage = () => {
     return (
@@ -40,6 +88,7 @@ const LoginPage = () => {
                             Login using Discord
                         </Button>
                     </Link>
+                    <PrivacyPolicy />
                 </Stack>
             </Stack>
         </Flex>

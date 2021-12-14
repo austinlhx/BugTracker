@@ -49,11 +49,22 @@ export const assignTicketToUser = (user, ticket) => {
         .then(response => response.json())
 }
 
+export const retrieveUser = () => {
+    return fetch('http://localhost:4000/user', {
+        headers: {
+            Accept: 'application/json',
+        },
+    })
+        .then(response => response.json())
+        .catch(err => console.log(err))
+}
+
 
 export default {
     createUser,
     findAllUsers,
     findUser,
     updateUser,
-    assignTicketToUser
+    assignTicketToUser,
+    retrieveUser
 }

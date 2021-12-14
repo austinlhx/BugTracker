@@ -12,7 +12,8 @@ import {
     Heading,
     useColorModeValue,
     RadioGroup,
-    Radio
+    Radio,
+    Text
 } from '@chakra-ui/react';
 import userServices from '../../services/userServices';
 import { useDispatch } from 'react-redux';
@@ -66,6 +67,14 @@ const RegisterPage = () => {
                     boxShadow={'lg'}
                     p={8}>
                     <Stack spacing={4}>
+                        <Box>
+                            <Heading fontSize={'xl'}>Email</Heading>
+                            <Text>{email}</Text>
+                        </Box>
+                        <Box>
+                            <Heading fontSize={'xl'}>Username</Heading>
+                            <Text>{username}</Text>
+                        </Box>
                         <HStack>
                             <Box>
                                 <FormControl id="firstName" isRequired>
