@@ -55,17 +55,30 @@ app.get('/', (req, res) => {
 })
 
 app.get('/user', (req, res) => {
+<<<<<<< HEAD
 
     try {
+=======
+    
+    try{
+>>>>>>> austinlhx-master
         const jsonOb = JSON.parse(JSON.stringify(req.sessionStore['sessions']))
         const object = JSON.parse(Object.values(jsonOb)[0])
         const current_user = object['passport']['user']
         res.json(current_user)
+<<<<<<< HEAD
     } catch (err) {
         console.log('user no existe')
     }
 
 
+=======
+    }catch(err) {
+        console.log('user no existe')
+    }
+    
+    
+>>>>>>> austinlhx-master
 })
 
 app.listen(port, () => {
@@ -111,11 +124,19 @@ app.get('/loggedout', function (req, res) {
 
 function checkAuth(req, res, next) {
     console.log(req.user)
+<<<<<<< HEAD
     try {
         const jsonOb = JSON.parse(JSON.stringify(req.sessionStore['sessions']))
         const object = JSON.parse(Object.values(jsonOb)[0])
         const current_user = object['passport']['user']
 
+=======
+    try{
+        const jsonOb = JSON.parse(JSON.stringify(req.sessionStore['sessions']))
+        const object = JSON.parse(Object.values(jsonOb)[0])
+        const current_user = object['passport']['user']
+        
+>>>>>>> austinlhx-master
         const email = current_user['email'];
         const userName = current_user['username'];
         userDao.findUser(email).then(user => {
@@ -125,9 +146,15 @@ function checkAuth(req, res, next) {
                 return next();
             }
         })
+<<<<<<< HEAD
     } catch (err) {
         console.log('user no existe')
         res.redirect('http://localhost:3000/login')
+=======
+    }catch(err) {
+        console.log('user no existe')
+        res.redirect('/login')
+>>>>>>> austinlhx-master
     }
     // if (req.isAuthenticated()) {
     //     const email = req.user.email;
