@@ -23,7 +23,7 @@ module.exports = (app, checkAuth) => {
     }
 
     const findUser = (req, res) => {
-        dao.findUser(req.params.id)
+        dao.findUser(req.params.email)
             .then(user => {
                 res.json(user)
             });
@@ -39,7 +39,7 @@ module.exports = (app, checkAuth) => {
 
     app.post('/api/users', createUser)
     app.get('/api/users', checkAuth, findAllUsers)
-    app.get('/api/users/:id', checkAuth, findUser)
+    app.get('/api/users/:email', checkAuth, findUser)
     app.put('/api/users/:id', checkAuth, updateUser)
     app.put('/api/users/:user_id/ticket/:id', checkAuth, assignTicketToUser)
 
