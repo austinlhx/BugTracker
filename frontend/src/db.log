@@ -70,3 +70,13 @@ db.tickets.insert({
         "type": "Bug",
         "created_date": "12/8/2021"
     }); 
+
+    db.users.insert(    {
+           "userName": "Duy Tran",
+            "firstName": "Duy",
+            "lastName": "Tran",
+            "email": "duytv2303@gmail.com",
+            "role": "Developer",
+            "assignedProject": '',
+            "assignedTickets": []
+    }); 

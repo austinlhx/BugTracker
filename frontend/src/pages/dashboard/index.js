@@ -12,9 +12,21 @@ import {
     HStack
 } from '@chakra-ui/react'
 import DoughnutChart from '../../components/charts/doughnut';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import userServices from '../../services/userServices';
 
 const DashboardPage = () => {
+    const dispatch = useDispatch();
+    const queryParams = new URLSearchParams(window.location.search);
+    const email = queryParams.get('email');
+    if (email != null) {
+        userServices.findUser(email).then(res => console.log(res))
+        // const action = {
+        //     type: 'add-user',
+
+        // };
+        // dispatch(action);
+    }
     const ticket_type_data = {
         labels: ['Bug', 'Feature Request', 'Customer Issue'],
         datasets: [

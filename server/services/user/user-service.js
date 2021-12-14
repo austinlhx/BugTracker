@@ -6,13 +6,13 @@ module.exports = (app, checkAuth) => {
     const createUser = (req, res) => {
         console.log('create user')
         try {
-            console.log(req.body)
             dao.createUser(req.body)
+            res.redirect('http://localhost:3000/dashboard')
         }
-        catch(e) {
+        catch (e) {
             console.log('Error: ', e)
         }
-        
+
     }
 
     const findAllUsers = (req, res) => {
