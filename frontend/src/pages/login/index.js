@@ -5,8 +5,35 @@ import {
     Button,
     Heading,
     useColorModeValue,
-    Link
+    Link,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure
 } from '@chakra-ui/react';
+
+const PrivacyPolicy = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    return (
+        <>
+            <Button onClick={onOpen}>Privacy Policy</Button>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Modal Title</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
+        </>
+    )
+}
 
 const LoginPage = () => {
     return (
@@ -40,6 +67,7 @@ const LoginPage = () => {
                             Login using Discord
                         </Button>
                     </Link>
+                    <PrivacyPolicy />
                 </Stack>
             </Stack>
         </Flex>

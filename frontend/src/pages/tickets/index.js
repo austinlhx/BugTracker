@@ -44,6 +44,9 @@ const TicketsPage = () => {
 
     const Details = (row) => {
         const { isOpen, onOpen, onClose } = useDisclosure();
+        const [ticket, setTicket] = useState([]);
+        useEffect(() => ticketServices.findticket(row.row._id)
+            .then(res => setTicket(res[0])), []);
         return (
             <>
                 <Button onClick={onOpen}>Details</Button>
@@ -55,16 +58,16 @@ const TicketsPage = () => {
                         <ModalBody>
                             <HStack>
                                 <VStack>
-                                    <TicketStat heading={'Name'} stat={row.row.name} />
-                                    <TicketStat heading={'Id'} stat={row.row._id} />
-                                    <TicketStat heading={'Description'} stat={row.row.description} />
-                                    <TicketStat heading={'Submitter'} stat={row.row.submitter} />
+                                    <TicketStat heading={'Name'} stat={ticket.name} />
+                                    <TicketStat heading={'Id'} stat={ticket._id} />
+                                    <TicketStat heading={'Description'} stat={ticket.description} />
+                                    <TicketStat heading={'Submitter'} stat={ticket.submitter} />
                                 </VStack>
                                 <VStack>
-                                    <TicketStat heading={'Assigned Dev'} stat={row.row.assigned_developer} />
-                                    <TicketStat heading={'priority'} stat={row.row.priority} />
-                                    <TicketStat heading={'status'} stat={row.row.status} />
-                                    <TicketStat heading={'type'} stat={row.row.type} />
+                                    <TicketStat heading={'Assigned Dev'} stat={ticket.assigned_developer} />
+                                    <TicketStat heading={'priority'} stat={ticket.priority} />
+                                    <TicketStat heading={'status'} stat={ticket.status} />
+                                    <TicketStat heading={'type'} stat={ticket.type} />
                                 </VStack>
                             </HStack>
 

@@ -12,6 +12,7 @@ import TicketsPage from './pages/tickets';
 import ProjectsPage from './pages/projects';
 import RedirectPage from './pages/redirect';
 import ManageUserPage from './pages/manage';
+import ProfilePage from './pages/profile';
 
 const reducer = combineReducers({ users, projects, tickets });
 const store = createStore(reducer)
@@ -39,6 +40,9 @@ function App() {
           } /> */}
           <Route path="/manage" element={
             <ManageUserPage />
+          } />
+          <Route path="/profile" element={
+            <ProfilePage />
           } />
         </Routes>
       </BrowserRouter>
