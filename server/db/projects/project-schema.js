@@ -4,8 +4,8 @@ const schema = mongoose.Schema({
     description: String,
     tickets: [String],
     developers: [String],
-    created_date: { type: Date, default: Date.now}
-}, {collection: 'users'});
+    created_date: { type: Date, default: Date.now }
+}, { collection: 'projects' });
 
 
 module.exports = schema;

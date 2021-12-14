@@ -27,6 +27,7 @@ import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 import { useTable, useSortBy, useFilters } from 'react-table'
 import ticketServices from '../../services/ticketServices';
 import { Filter, DefaultColumnFilter } from './filter';
+import SidebarWithHeader from '../../components/sidebar';
 
 const TicketsPage = () => {
     // hooks for the modals
@@ -98,10 +99,6 @@ const TicketsPage = () => {
                 accessor: 'project',
             },
             {
-                Header: 'Submitter',
-                accessor: 'submitter',
-            },
-            {
                 Header: 'Assigned Dev',
                 accessor: 'assigned_developer',
             },
@@ -116,10 +113,6 @@ const TicketsPage = () => {
             {
                 Header: 'Type',
                 accessor: 'type',
-            },
-            {
-                Header: 'Create Date',
-                accessor: 'created_date',
             },
             {
                 Header: "Action",
@@ -139,57 +132,58 @@ const TicketsPage = () => {
         useTable({ columns, data, defaultColumn: { Filter: DefaultColumnFilter } }, useFilters, useSortBy)
 
     return (
-        <Box
-            bg={useColorModeValue('white', 'gray.800')}
-            boxShadow={'2xl'}
-            rounded={'20px'}
-            padding={'10px'}>
-            <Table {...getTableProps()}>
-                <Thead>
-                    {headerGroups.map((headerGroup) => (
-                        <Tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map((column) => (
-                                <Th
-                                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                                    isNumeric={column.isNumeric}
-                                >
-                                    <Box>
-                                        {column.render('Header')}
-                                        <chakra.span pl='4'>
-                                            {column.isSorted ? (
-                                                column.isSortedDesc ? (
-                                                    <TriangleDownIcon aria-label='sorted descending' />
-                                                ) : (
-                                                    <TriangleUpIcon aria-label='sorted ascending' />
-                                                )
-                                            ) : null}
+        <SidebarWithHeader>
+            <Box
+                bg={useColorModeValue('white', 'gray.800')}
+                boxShadow={'2xl'}
+                rounded={'20px'}
+                padding={'10px'}>
+                <Table {...getTableProps()}>
+                    <Thead>
+                        {headerGroups.map((headerGroup) => (
+                            <Tr {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map((column) => (
+                                    <Th
+                                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                                        isNumeric={column.isNumeric}
+                                    >
+                                        <Box>
+                                            {column.render('Header')}
+                                            <chakra.span pl='4'>
+                                                {column.isSorted ? (
+                                                    column.isSortedDesc ? (
+                                                        <TriangleDownIcon aria-label='sorted descending' />
+                                                    ) : (
+                                                        <TriangleUpIcon aria-label='sorted ascending' />
+                                                    )
+                                                ) : null}
 
-                                        </chakra.span>
-                                    </Box>
+                                            </chakra.span>
+                                        </Box>
 
-                                    <Filter column={column} />
-                                </Th>
-                            ))}
-                        </Tr>
-                    ))}
-                </Thead>
-                <Tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
-                        prepareRow(row)
-                        return (
-                            <Tr {...row.getRowProps()}>
-                                {row.cells.map((cell) => (
-                                    <Td {...cell.getCellProps()} isNumeric={cell.column.isNumeric}>
-                                        {cell.render('Cell')}
-                                    </Td>
+                                        <Filter column={column} />
+                                    </Th>
                                 ))}
                             </Tr>
-                        )
-                    })}
-                </Tbody>
-            </Table>
-        </Box>
-
+                        ))}
+                    </Thead>
+                    <Tbody {...getTableBodyProps()}>
+                        {rows.map((row) => {
+                            prepareRow(row)
+                            return (
+                                <Tr {...row.getRowProps()}>
+                                    {row.cells.map((cell) => (
+                                        <Td {...cell.getCellProps()} isNumeric={cell.column.isNumeric}>
+                                            {cell.render('Cell')}
+                                        </Td>
+                                    ))}
+                                </Tr>
+                            )
+                        })}
+                    </Tbody>
+                </Table>
+            </Box>
+        </SidebarWithHeader>
     )
 }
 

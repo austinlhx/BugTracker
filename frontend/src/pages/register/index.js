@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import {
     Flex,
@@ -15,6 +15,7 @@ import {
     Radio
 } from '@chakra-ui/react';
 import userServices from '../../services/userServices';
+import { useDispatch } from 'react-redux';
 
 const RegisterPage = () => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -26,6 +27,7 @@ const RegisterPage = () => {
     const [role, setRole] = useState();
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
     const handleSubmit = () => {
 
         const newUser = {
@@ -39,7 +41,11 @@ const RegisterPage = () => {
         }
 
         userServices.createUser(newUser).then(res => navigate('/dashboard'));
-
+        // const action = {
+        //     type: 'add-user',
+        //     newUser
+        // };
+        // dispatch(action);
     }
 
     return (

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     Thead,
@@ -9,24 +9,40 @@ import {
     useColorModeValue,
     Text,
     VStack,
-    HStack
+    HStack,
+    Stack,
+    Box
 } from '@chakra-ui/react'
 import DoughnutChart from '../../components/charts/doughnut';
 import { useSelector, useDispatch } from "react-redux";
 import userServices from '../../services/userServices';
+import SidebarWithHeader from '../../components/sidebar';
+import projectServices from '../../services/projectServices';
+import ticketServices from '../../services/ticketServices';
+
+// const Wrapper = ({ children }) => {
+//     const dispatch = useDispatch();
+//     const queryParams = new URLSearchParams(window.location.search);
+//     const email = queryParams.get('email');
+//     const [user, setUser] = useState();
+//     if (email != null) {
+//         userServices.findUser(email).then(res => setUser(res[0]))
+//         const action = {
+//             type: 'add-user',
+//             newUser: user
+//         };
+//         dispatch(action);
+//     }
+
+//     return (
+//         <Box>
+//             {children}
+//         </Box>
+//     )
+// }
 
 const DashboardPage = () => {
-    const dispatch = useDispatch();
-    const queryParams = new URLSearchParams(window.location.search);
-    const email = queryParams.get('email');
-    if (email != null) {
-        userServices.findUser(email).then(res => console.log(res))
-        // const action = {
-        //     type: 'add-user',
 
-        // };
-        // dispatch(action);
-    }
     const ticket_type_data = {
         labels: ['Bug', 'Feature Request', 'Customer Issue'],
         datasets: [
@@ -109,22 +125,27 @@ const DashboardPage = () => {
     };
 
     return (
-        <VStack spacing='6'>
-            <HStack spacing='6' justify={'space-evenly'} w={'full'}>
-                <DoughnutChart name="Tickets by Type" data={ticket_type_data} />
-                <DoughnutChart name="Tickets by Priority" data={ticket_status_data} />
-                <DoughnutChart name="Tickets by Status" data={ticket_priority_data} />
-            </HStack>
-            <HStack justify={'space-evenly'} w={'full'}>
-                <TicketsTable />
-                <ProjectsTable />
-            </HStack>
-        </VStack>
+        <SidebarWithHeader>
+            <VStack spacing='6'>
+                <Stack direction={['column', 'column', 'row']} spacing='6' justify={'space-evenly'} w={'full'}>
+                    <DoughnutChart name="Tickets by Type" data={ticket_type_data} />
+                    <DoughnutChart name="Tickets by Priority" data={ticket_status_data} />
+                    <DoughnutChart name="Tickets by Status" data={ticket_priority_data} />
+                </Stack>
+                <Stack direction={['column', 'column', 'row']} justify={'space-evenly'} w={'full'}>
+                    <TicketsTable />
+                    <ProjectsTable />
+                </Stack>
+            </VStack>
+        </SidebarWithHeader>
     )
 }
 
 const TicketsTable = () => {
-    const tickets = useSelector((state) => state.tickets);
+    // const tickets = useSelector((state) => state.tickets);
+    const [tickets, setTickets] = useState([]);
+    useEffect(() => ticketServices.findAllTickets()
+        .then(tickets => setTickets(tickets)), []);
     const display_tickets = tickets.slice(0, 3);
     return (
         <VStack
@@ -161,7 +182,10 @@ const TicketsTable = () => {
 }
 
 const ProjectsTable = () => {
-    const projects = useSelector((state) => state.projects);
+    // const projects = useSelector((state) => state.projects);
+    const [projects, setProjects] = useState([]);
+    useEffect(() => projectServices.findAllProjects()
+        .then(res => setProjects(res)), []);
     const display_projects = projects.slice(0, 3);
     return (
         <VStack
