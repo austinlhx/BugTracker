@@ -81,7 +81,7 @@ app.get('/callback',
             if (user.length == 0) {
                 res.redirect('http://localhost:3000/register/?email=' + email + '&username=' + userName)
             } else {
-                res.redirect('http://localhost:3000/dashboard')
+                res.redirect('http://localhost:3000/dashboard/?email=' + email)
             }
         })
     }
