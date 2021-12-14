@@ -39,7 +39,7 @@ module.exports = (app, checkAuth) => {
 
     app.post('/api/users', createUser)
     app.get('/api/users', findAllUsers)
-    app.get('/api/users/:email', findUser)
+    app.get('/api/users/:email', checkAuth, findUser)
     app.put('/api/users/:id', checkAuth, updateUser)
     app.put('/api/users/:user_id/ticket/:id', checkAuth, assignTicketToUser)
 

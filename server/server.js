@@ -50,8 +50,22 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', checkAuth, (req, res) => {
+app.get('/', (req, res) => {
     res.json(req.user)
+})
+
+app.get('/user', (req, res) => {
+    
+    try{
+        const jsonOb = JSON.parse(JSON.stringify(req.sessionStore['sessions']))
+        const object = JSON.parse(Object.values(jsonOb)[0])
+        const current_user = object['passport']['user']
+        res.json(current_user)
+    }catch(err) {
+        console.log('user no existe')
+    }
+    
+    
 })
 
 app.listen(port, () => {
@@ -69,7 +83,6 @@ app.use(function (req, res, next) {
 });
 
 app.get('/login', passport.authenticate('discord', { scope: scopes }), (req, res) => {
-    console.log('redirected to oauth url')
 });
 
 app.get('/callback',
@@ -81,7 +94,7 @@ app.get('/callback',
             if (user.length == 0) {
                 res.redirect('http://localhost:3000/register/?email=' + email + '&username=' + userName)
             } else {
-                res.redirect('http://localhost:3000/dashboard/?email=' + email)
+                res.redirect('http://localhost:3000/dashboard')
             }
         })
     }
@@ -97,9 +110,14 @@ app.get('/loggedout', function (req, res) {
 })
 
 function checkAuth(req, res, next) {
-    if (req.isAuthenticated()) {
-        const email = req.user.email;
-        const userName = req.user.userName;
+    console.log(req.user)
+    try{
+        const jsonOb = JSON.parse(JSON.stringify(req.sessionStore['sessions']))
+        const object = JSON.parse(Object.values(jsonOb)[0])
+        const current_user = object['passport']['user']
+        
+        const email = current_user['email'];
+        const userName = current_user['username'];
         userDao.findUser(email).then(user => {
             if (user.length == 0) {
                 res.redirect('http://localhost:3000/register/?email=' + email + '&username=' + userName)
@@ -107,9 +125,24 @@ function checkAuth(req, res, next) {
                 return next();
             }
         })
-    } else {
+    }catch(err) {
+        console.log('user no existe')
         res.redirect('/login')
     }
+    // if (req.isAuthenticated()) {
+    //     const email = req.user.email;
+    //     const userName = req.user.userName;
+    //     userDao.findUser(email).then(user => {
+    //         if (user.length == 0) {
+    //             res.redirect('http://localhost:3000/register/?email=' + email + '&username=' + userName)
+    //         } else {
+    //             return next();
+    //         }
+    //     })
+    // } else {
+    //     console.log('hi')
+    //     res.redirect('/login')
+    // }
 
 
 }
