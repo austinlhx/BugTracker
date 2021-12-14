@@ -1,7 +1,12 @@
-import usersJson from './data/users.json';
+// import usersJson from './data/users.json';
 
-const users = (state = usersJson) => {
-    return state;
+const users = (state, action) => {
+    switch (action.type) {
+        case 'add-user':
+            return state
+        default:
+            return null
+    }
 }
 
 export default users;

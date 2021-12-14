@@ -17,8 +17,8 @@ export const findAllUsers = () => {
         .then(response => response.json())
 }
 
-export const findUser = (user) => {
-    return fetch(`${USER_API} / ${user._id} / like`)
+export const findUser = (email) => {
+    return fetch(`${USER_API}/${email}`)
         .then(response => response.json());
 }
 
