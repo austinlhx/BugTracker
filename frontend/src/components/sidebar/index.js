@@ -64,7 +64,22 @@ export default function SidebarWithHeader({ children }) {
     //     dispatch(action);
     // }
     // const user = useSelector(state => state.users)
-    userServices.retrieveUser().then(res => console.log(res))
+
+    // console.log(email)
+    // console.log(user2)
+    // const [user3, setUser] = useState();
+    // userServices.findUser(user2.email)
+    //     .then(res => setUser(res[0]));
+    // console.log(user3)
+    // const user = user3
+
+    // const [retrievedUser, setRevUser] = useState()
+    // const [user, setUser] = useState()
+
+    // useEffect(() => userServices.retrieveUser().then(res => setRevUser(res)), [])
+    // useEffect(() => userServices.findUser(email)
+    // .then(res => setUser(res[0])), []);
+    // console.log(retrievedUser);
 
     const user = {
         userName: "Duy Tran",
@@ -76,9 +91,8 @@ export default function SidebarWithHeader({ children }) {
         assignedTickets: []
     }
 
-    if (user.role == 'Developer') {
-        LinkItems = LinkItems.slice(0, 2)
-    }
+    LinkItems = LinkItems.slice(0, 2)
+
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -238,7 +252,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
                             <MenuItem>Profile</MenuItem>
                             <MenuItem>Settings</MenuItem>
                             <MenuDivider />
-                            <MenuItem>Sign out</MenuItem>
+                            <MenuItem><Link href='http://localhost:4000/loggedout'>Sign out</Link></MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>

@@ -40,8 +40,8 @@ module.exports = (app, checkAuth) => {
     }
 
     app.post('/api/tickets', checkAuth, createTicket)
-    app.get('/api/tickets', findAllTickets)
-    app.get('/api/tickets/:id', findTicket)
+    app.get('/api/tickets', checkAuth, findAllTickets)
+    app.get('/api/tickets/:id', checkAuth, findTicket)
     app.put('/api/tickets/edit/:id', checkAuth, editTicket)
     app.put('/api/tickets/assign/:id', checkAuth, assignTicket)
     app.delete('/api/tickets/:id', checkAuth, deleteTicket)

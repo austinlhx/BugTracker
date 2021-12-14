@@ -65,5 +65,6 @@ export default {
     findAllUsers,
     findUser,
     updateUser,
-    assignTicketToUser
+    assignTicketToUser,
+    retrieveUser
 }
