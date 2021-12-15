@@ -8,21 +8,19 @@ const findAllTickets = () => model.find({}, {});
 
 const findTicket = (id) => model.find({_id: id});
 
-const editTicket = (id) => 
+const editTicket = (id, description) => 
     model.updateOne({_id: id},
         {
             $set: {
-                description: "To be implemented..."
+                description: description
             }
         });
 
 const assignTicket = (user_id, id) => {
-    //TODO: Retrieve User from ID
-    const user = "retrieveUser";
     return model.updateOne({_id: id},
         {
             $push: {
-                assignedTo: user
+                assignedTo: user_id
             }
         });
     }
