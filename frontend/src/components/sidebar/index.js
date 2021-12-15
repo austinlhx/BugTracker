@@ -51,8 +51,11 @@ let LinkItems = [
 
 const getUser = async () => {
     const discordUser = await userServices.retrieveUser()
+    // console.log(discordUser);
     const currentUser = await userServices.findUser(discordUser.email)
     return currentUser[0];
+
+    // return undefined;
 }
 
 export default function SidebarWithHeader({ children }) {
@@ -64,7 +67,7 @@ export default function SidebarWithHeader({ children }) {
     if (users === undefined) {
         user = {
             userName: "Duy Tran",
-            firstName: "Duy",
+            firstName: "A",
             lastName: "Tran",
             email: "duytv2303@gmail.com",
             role: "Admin",
@@ -75,7 +78,9 @@ export default function SidebarWithHeader({ children }) {
         user = users;
     }
 
-    LinkItems = LinkItems.slice(0, 2)
+    if (user.role == 'Developer') {
+        LinkItems = LinkItems.slice(0, 2)
+    }
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
@@ -167,15 +172,15 @@ const NavItem = ({ route, icon, children, ...rest }) => {
 
 const MobileNav = ({ onOpen, user, ...rest }) => {
     // console.log(user);
-    const user = {
-        userName: "Duy Tran",
-        firstName: "Duy",
-        lastName: "Tran",
-        email: "duytv2303@gmail.com",
-        role: "Admin",
-        assignedProject: '',
-        assignedTickets: []
-    }
+    // const user = {
+    //     userName: "Duy Tran",
+    //     firstName: "Duy",
+    //     lastName: "Tran",
+    //     email: "duytv2303@gmail.com",
+    //     role: "Admin",
+    //     assignedProject: '',
+    //     assignedTickets: []
+    // }
     return (
         <Flex
             ml={{ base: 0, md: 60 }}

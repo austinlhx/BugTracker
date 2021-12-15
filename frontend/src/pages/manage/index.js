@@ -8,7 +8,8 @@ import {
     Td,
     useColorModeValue,
     Box,
-    chakra
+    chakra,
+    Button
 } from '@chakra-ui/react';
 import { useSelector } from "react-redux";
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
@@ -47,7 +48,18 @@ const ManageUserPage = () => {
             {
                 Header: 'Join Date',
                 accessor: 'date',
-            }
+            },
+            {
+                Header: 'Actions',
+                Cell: ({ row }) => {
+                    return (
+                        <Box>
+                            <Button>Edit</Button>
+                            <Button >Delete</Button>
+                        </Box>
+                    )
+                }
+            },
         ],
         [],
     )
