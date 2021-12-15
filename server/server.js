@@ -102,7 +102,7 @@ app.get('/callback',
 
 app.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/loggedout');
+    res.redirect('http://localhost:3000/');
 });
 
 app.get('/loggedout', function (req, res) {
