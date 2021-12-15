@@ -4,10 +4,10 @@ const createUser = (user) => model.create(user);
 
 const findAllUsers = () => model.find();
 
-const findUser = (email) => model.find({email: email})
+const findUser = (email) => model.find({ email: email })
 
 const updateUser = (user_id, information) =>
-    model.updateOne({_id: user_id},
+    model.updateOne({ _id: user_id },
         {
             $set: {
                 firstName: "To be implemented"
@@ -15,7 +15,7 @@ const updateUser = (user_id, information) =>
         }) //TODO: implement so that anything could be updated.
 
 const assignTicketToUser = (ticket_id, id) => {
-    return model.updateOne({_id: id},
+    return model.updateOne({ _id: id },
         {
             $push: {
                 assignedTickets: ticket_id
@@ -24,7 +24,13 @@ const assignTicketToUser = (ticket_id, id) => {
 
 } //Should it be ticket or ticket_id?
 
+const deleteUser = (email) => {
+    console.log('hello');
+    console.log(email)
+    model.deleteOne({ email: email })
+}
+
 module.exports = {
-    createUser, findAllUsers, findUser, 
-    updateUser, assignTicketToUser
+    createUser, findAllUsers, findUser,
+    updateUser, assignTicketToUser, deleteUser
 }

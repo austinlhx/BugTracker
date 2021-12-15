@@ -59,6 +59,15 @@ export const retrieveUser = () => {
         .catch(err => console.log(err))
 }
 
+export const deleteUser = (email) => {
+    return fetch(`${USER_API}/${email}`, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => console.log(response.json()))
+        .catch(err => console.log(err))
+}
 
 export default {
     createUser,
@@ -66,5 +75,6 @@ export default {
     findUser,
     updateUser,
     assignTicketToUser,
-    retrieveUser
+    retrieveUser,
+    deleteUser
 }

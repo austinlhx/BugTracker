@@ -55,7 +55,7 @@ const ManageUserPage = () => {
                     return (
                         <Box>
                             <Button>Edit</Button>
-                            <Button >Delete</Button>
+                            <Button onClick={() => userServices.deleteUser(row.original.email)}>Delete</Button>
                         </Box>
                     )
                 }

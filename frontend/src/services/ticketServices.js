@@ -44,9 +44,20 @@ export const assignTicket = (user, ticket) => {
         .then(response => response.json())
 }
 
+export const deleteTicket = (id) => {
+    return fetch(`${TICKET_API}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => console.log(response.json()))
+        .catch(err => console.log(err))
+}
+
 export default {
     findAllTickets,
     findticket,
     editTicket,
-    assignTicket
+    assignTicket,
+    deleteTicket
 };
