@@ -49,46 +49,30 @@ let LinkItems = [
     { name: 'Manage Users', icon: FiUsers, route: '\\manage' }
 ];
 
+const getUser = async () => {
+    const discordUser = await userServices.retrieveUser()
+    const currentUser = await userServices.findUser(discordUser.email)
+    return currentUser[0];
+}
+
 export default function SidebarWithHeader({ children }) {
-    // const dispatch = useDispatch();
-    // const queryParams = new URLSearchParams(window.location.search);
-    // const email = queryParams.get('email');
-    // const [user2, setUser] = useState([]);
-    // useEffect(() => userServices.findUser(email)
-    //     .then(res => setUser(res[0])), []);
-    // if (user2 != null) {
-    //     const action = {
-    //         type: 'add-user',
-    //         newUser: user2
-    //     };
-    //     dispatch(action);
-    // }
-    // const user = useSelector(state => state.users)
-
-    // console.log(email)
-    // console.log(user2)
-    // const [user3, setUser] = useState();
-    // userServices.findUser(user2.email)
-    //     .then(res => setUser(res[0]));
-    // console.log(user3)
-    // const user = user3
-
-    // const [retrievedUser, setRevUser] = useState()
-    // const [user, setUser] = useState()
-
-    // useEffect(() => userServices.retrieveUser().then(res => setRevUser(res)), [])
-    // useEffect(() => userServices.findUser(email)
-    // .then(res => setUser(res[0])), []);
-    // console.log(retrievedUser);
-
-    const user = {
-        userName: "Duy Tran",
-        firstName: "Duy",
-        lastName: "Tran",
-        email: "duytv2303@gmail.com",
-        role: "Admin",
-        assignedProject: '',
-        assignedTickets: []
+    const [users, setUser] = useState()
+    useEffect(() => getUser().then(res => setUser(res)), [])
+    console.log(users)
+    let user = {}
+    // console.log(currentUser.email)
+    if (users === undefined) {
+        user = {
+            userName: "Duy Tran",
+            firstName: "Duy",
+            lastName: "Tran",
+            email: "duytv2303@gmail.com",
+            role: "Admin",
+            assignedProject: '',
+            assignedTickets: []
+        }
+    } else {
+        user = users;
     }
 
     LinkItems = LinkItems.slice(0, 2)
@@ -183,15 +167,15 @@ const NavItem = ({ route, icon, children, ...rest }) => {
 
 const MobileNav = ({ onOpen, user, ...rest }) => {
     // console.log(user);
-    // const user = {
-    //     userName: "Duy Tran",
-    //     firstName: "Duy",
-    //     lastName: "Tran",
-    //     email: "duytv2303@gmail.com",
-    //     role: "Admin",
-    //     assignedProject: '',
-    //     assignedTickets: []
-    // }
+    const user = {
+        userName: "Duy Tran",
+        firstName: "Duy",
+        lastName: "Tran",
+        email: "duytv2303@gmail.com",
+        role: "Admin",
+        assignedProject: '',
+        assignedTickets: []
+    }
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
