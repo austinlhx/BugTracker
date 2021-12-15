@@ -8,16 +8,15 @@ const findAllProjects = () => model.find({}, {});
 
 const findProject = (id) => model.find({_id: id});
 
-const editProject = (id) => 
+const editProject = (id, description) => 
     model.updateOne({_id: id},
         {
             $set: {
-                description: "To be implemented..."
+                description: description
             }
         });
 
 const assignProject = (user_id, id) => {
-    //TODO: Retrieve User from ID
     model.updateOne({_id: id},
         {
             $push: {
