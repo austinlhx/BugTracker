@@ -145,6 +145,7 @@ const TicketsPage = () => {
                 boxShadow={'2xl'}
                 rounded={'20px'}
                 padding={'10px'}>
+                <Button>Create Tickets</Button>
                 <Table {...getTableProps()}>
                     <Thead>
                         {headerGroups.map((headerGroup) => (
