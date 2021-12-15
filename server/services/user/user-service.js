@@ -38,11 +38,11 @@ module.exports = (app, checkAuth) => {
     }
 
     const deleteUser = (req, res) => {
-        dao.findUser(req.params.email)
+        dao.deleteUser(req.params.email)
     }
 
     app.post('/api/users', createUser)
-    app.get('/api/users', findAllUsers)
+    app.get('/api/users', checkAuth, findAllUsers)
     app.delete('/api/users/:email', deleteUser)
     app.get('/api/users/:email', checkAuth, findUser)
     app.put('/api/users/:id', checkAuth, updateUser)

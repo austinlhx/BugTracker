@@ -123,7 +123,11 @@ const TicketsPage = () => {
                 disableFilters: true,
                 Cell: ({ row }) => {
                     return (
-                        <Details row={row.original} />
+                        <Box>
+                            <Details row={row.original} />
+                            <Button>Edit</Button>
+                            <Button onClick={() => ticketServices.deleteTicket(row.original._id)}>Delete</Button>
+                        </Box>
                     )
                 }
             }
@@ -141,6 +145,7 @@ const TicketsPage = () => {
                 boxShadow={'2xl'}
                 rounded={'20px'}
                 padding={'10px'}>
+                <Button>Create Tickets</Button>
                 <Table {...getTableProps()}>
                     <Thead>
                         {headerGroups.map((headerGroup) => (
