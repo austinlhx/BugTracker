@@ -37,8 +37,13 @@ module.exports = (app, checkAuth) => {
         dao.assignTicketToUser(req.params.id, req.params.user_id)
     }
 
+    const deleteUser = (req, res) => {
+        dao.findUser(req.params.email)
+    }
+
     app.post('/api/users', createUser)
     app.get('/api/users', findAllUsers)
+    app.delete('/api/users/:email', deleteUser)
     app.get('/api/users/:email', checkAuth, findUser)
     app.put('/api/users/:id', checkAuth, updateUser)
     app.put('/api/users/:user_id/ticket/:id', checkAuth, assignTicketToUser)
